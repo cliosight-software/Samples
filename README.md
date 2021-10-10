@@ -3,7 +3,7 @@
 # cliosuite
 
 <b><u>PROJECTS</u></b><br/>
-<b>1. <a href="http://signup.cliosight.com">User research</a></b>
+<b>1. User research</b>
 Our first project is to create a product intro, signup web app, and collect user data and other information from potential customers. This is deployed into GCP App engine.
 
 
@@ -17,7 +17,7 @@ Our second project is of a <b>web data & file management system</b>. It will hav
 6. Editing image, video, pdf and 3D files
 
 
-<b>3. <a href="http://collab.cliosight.com">Online Collaboration and Support Service</a></b><br/>
+<b>3. Online Collaboration and Support Service</b><br/>
 Our third project will demonstrate <b>collaboration and support</b> for enterprise applications. This will include parts for contacts management and customer support. Basically it will have the following modules:
 1. Video conferencing
 2. Collaborative editing
@@ -48,7 +48,7 @@ Our sixth project is a web application for integrated online marketing with <b>a
 2. Email Marketing
 3. Social Media Marketing
 
-The highlights can be viewed in http://suite.cliosight.com and current screens of each is available in my <a href="https://www.behance.net/jigishaaryya">behance profile</a>.
+Current screens of each is available in my <a href="https://www.behance.net/jigishaaryya">behance profile</a>.
 
 
 Technology stack used:
