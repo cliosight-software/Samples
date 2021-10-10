@@ -1,0 +1,361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, height=device-height, shrink-to-fit=yes">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+
+
+<style>
+
+.glass-panel {
+
+  color: #fff;
+
+  margin: 40px auto;
+
+  background-color: rgba(255,255,255,0.03);
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  width: 80%;
+
+  border-radius: 15px;
+
+  padding: 32px;
+
+  backdrop-filter: blur(10px);
+
+}
+
+
+
+.glass-button {
+
+  display: inline-block;
+
+  padding: 24px 32px;
+
+  border: 0;
+
+  text-decoration: none;
+
+  border-radius: 15px;
+
+  background-color: rgba(255,255,255,0.1);
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  backdrop-filter: blur(30px);
+
+  color: rgba(255,255,255,0.8);
+
+  font-size: 14px;
+
+  letter-spacing: 2px;
+
+  cursor: pointer;
+
+  text-transform: uppercase;
+
+}
+
+
+
+.glass-button:hover {
+
+  background-color: rgba(255,255,255,0.2);
+
+}
+
+
+
+body {
+
+  background: url(pretotyping_c.jpg) no-repeat center center fixed;
+
+  -webkit-background-size: cover;
+
+  -moz-background-size: cover;
+
+  -o-background-size: cover;
+
+  background-size: cover;
+
+  text-align: center;
+
+  font-family: 'Open Sans', sans-serif;
+
+}
+
+
+
+.glass-button {
+
+  margin: 15px;
+
+  margin-top: 40px;
+
+}
+
+
+
+h1, h1 a {
+
+
+
+  width: 100%;
+
+  max-width: 1400px;
+
+  vertical-align: middle;
+
+  text-align: center;
+
+  margin: 20px auto;
+
+  text-decoration: none;
+
+  color: #fff;
+
+  padding-top: 20px;
+
+  color: rgba(255,255,255,0.8);
+
+}
+
+
+
+h3 {
+
+  width: 100%;
+
+  margin: 20px auto;
+
+
+  color: rgba(255,255,255,0.8);
+
+  text-align: left;
+
+  line-height: 150%;
+
+  font-size:3vw;
+
+  word-wrap: break-word;
+
+}
+
+
+
+p {
+
+  width: 100%;
+
+  margin: 20px auto;
+
+  padding-bottom: 20px;
+
+  color: rgba(255,255,255,0.6);
+
+  text-align: left;
+
+  line-spacing: 10px;
+
+}
+
+
+
+/* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
+
+@media screen and (min-width: 601px) {
+
+  div.example {
+
+    font-size: 80px;
+
+  }
+
+}
+
+
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+
+@media screen and (max-width: 600px) {
+
+  div.example {
+
+    font-size: 30px;
+
+  }
+
+}
+
+
+
+
+
+.topnav {
+
+  overflow: hidden;
+
+  background-color: rgba(0,0,0,0.1);
+
+}
+
+
+
+.topnav a {
+
+  float: left;
+
+  display: block;
+
+  color: #f2f2f2;
+
+  text-align: center;
+
+  padding: 14px 16px;
+
+  text-decoration: none;
+
+  font-size: 17px;
+
+}
+
+
+
+.topnav a:hover {
+
+  background-color: #ddd;
+
+  color: black;
+
+}
+
+
+
+.topnav a.active {
+
+  color: white;
+
+}
+
+
+
+.topnav .icon {
+
+  display: none;
+
+}
+
+
+
+@media screen and (max-width: 600px) {
+
+  .topnav a:not(:first-child) {display: none;}
+
+  .topnav a.icon {
+
+    float: right;
+
+    display: block;
+
+  }
+
+}
+
+
+
+@media screen and (max-width: 600px) {
+
+  .topnav.responsive {position: relative;}
+
+  .topnav.responsive .icon {
+
+    position: absolute;
+
+    right: 0;
+
+    top: 0;
+
+  }
+
+  .topnav.responsive a {
+
+    float: none;
+
+    display: block;
+
+    text-align: left;
+
+  }
+
+}
+
+
+
+</style>
+
+<body>
+
+<div class="topnav" id="myTopnav">
+
+  <a href="articles.html">Articles</a>
+
+  <a href="index.html">Portfolio</a>
+
+  <a href="summary.html" >Cliosuite</a>
+
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+
+    <i class="fa fa-bars"></i>
+
+  </a>
+
+</div>
+
+    <div class="bg-image"></div>
+    <div class="glass-panel">
+  <h3 style="font-size:3.5vw;color:white;">Pretotyping versus Prototyping</h3>
+<h3>Pretotyping is a concept known to a lesser number of people because we believe that to build anything we need to have an idea in our mind, then design it on paper, a wireframing tool or a whiteboard, and finally, develop an application for one or multiple devices, or anything else that is tangible, like a circuit board or a motor. Pretotyping is useful because there's very little effort needed to validate something that we are not sure if worthy enough of our energy and money. Engineers and designers can collect user feedback for an idea or a concept quickly by simply putting it out in words rather than in a physical form but with the risk that if it's really good then it might get copied and sold to users even before they start building it. So small companies and startups or hackers need to be careful in not putting out all the differentiating features or by publishing it only to a selected group of potential customers if possible, for the initial rounds of user acceptance testing.
+The answers that we can get are:<br/>
+Can we build it? <br/>
+Will it work at all? <br/>
+Will it work as intended? <br/>
+How small/big can we make it? <br/>
+How much would it cost to produce? <br/>
+How will people use it? <br/>
+What will people use it for?<br/>
+In short, we need to try it out in the cheapest possible way. To do this, complex parts can be mocked, simulated, replaced with a temporary working part, etc. This is according to the type of product we intend to develop.
+Some examples are:<br/>
+1. Web or Mobile applications, having a signup or subscription box to collect the email ids or mobile numbers of those who might be interested in using the product. A page or a screen is shown when the user installs the app or visits the URL with the details of the product or app features that the creator wants to show the prospect users.
+<br/>
+2. Simulating the back-end working with hardcoded return values in complex software, building the UI with templates or CMS or existing projects like open source. Then publishing and marketing it via social media, emails, or simply contacting a trusted group of people for feedback, etc. Adding relevant keywords to the webpage for SEO is another way.<br/>
+3. Using paper, cheap construction material like plaster of Paris to build a physical model or a construct.<br/>
+4. Using simulators for circuit design.<br/>
+5. Handouts about a product with or without displaying the actual product at a physical store and asking shoppers to give a missed call to a number if they are interested. Recording and tracking the numbers of the callers can be done via paid APIs. This is particularly useful for consumer products.<br/>
+6. Using humans behind the expected automated skills. Like, people doing the writing or proofreading tasks instead of having software. This was first done by IBM for speech to text conversion.<br/>
+7. Attracting attention by creating a flashy video or a web page showing pictures of a simulated product or a prototype, and asking people to signup. Eg. Google glasses intro video.<br/>
+8. Building hype for the product via influencers and social media and releasing the prototype with minimal features for a limited time for free, with or without feedback. Tracking the number of visits and clicks for each page or item can give a view of the interest levels and pointers for improvements.
+</h3>
+</div>
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+</body>
+</html>
+
