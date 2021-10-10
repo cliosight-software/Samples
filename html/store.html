@@ -1,0 +1,417 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, height=device-height, shrink-to-fit=yes">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="articles.css">
+</head>
+
+
+
+<style>
+
+
+.glass-panel {
+
+  color: #fff;
+
+  margin: 40px auto;
+
+  background-color: rgba(255,255,255,0.03);
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  width: 80%;
+
+  border-radius: 15px;
+
+  padding: 32px;
+
+  backdrop-filter: blur(10px);
+
+}
+
+
+
+.glass-button {
+
+  display: inline-block;
+
+  padding: 24px 32px;
+
+  border: 0;
+
+  text-decoration: none;
+
+  border-radius: 15px;
+
+  background-color: rgba(255,255,255,0.1);
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  backdrop-filter: blur(30px);
+
+  color: rgba(255,255,255,0.8);
+
+  font-size: 14px;
+
+  letter-spacing: 2px;
+
+  cursor: pointer;
+
+  text-transform: uppercase;
+
+}
+
+
+
+.glass-button:hover {
+
+  background-color: rgba(255,255,255,0.2);
+
+}
+
+
+
+body {
+
+  background: url(https://images.unsplash.com/photo-1607082351305-62d667815b4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80) no-repeat center center fixed;
+  -webkit-background-size: cover;
+
+  -moz-background-size: cover;
+
+  -o-background-size: cover;
+
+  background-size: cover;
+
+  text-align: center;
+
+  font-family: 'Open Sans', sans-serif;
+
+}
+
+
+
+.glass-button {
+
+  margin: 15px;
+
+  margin-top: 40px;
+
+}
+
+
+
+h1, h1 a {
+
+
+
+  width: 100%;
+
+  max-width: 1400px;
+
+  vertical-align: middle;
+
+  text-align: center;
+
+  margin: 20px auto;
+
+  text-decoration: none;
+
+  color: #fff;
+
+  padding-top: 20px;
+
+  color: rgba(255,255,255,0.8);
+
+}
+
+
+
+h3 {
+
+  width: 100%;
+
+  margin: 20px auto;
+
+  color: rgba(255,255,255,0.8);
+
+  text-align: left;
+
+  line-height: 150%;
+
+  font-size:3vw;
+
+  word-wrap: break-word;
+
+}
+
+
+
+p {
+
+  width: 100%;
+
+  margin: 20px auto;
+
+
+  color: rgba(255,255,255,0.6);
+
+  text-align: left;
+
+  line-spacing: 10px;
+
+}
+
+
+
+/* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
+
+@media screen and (min-width: 601px) {
+
+  div.example {
+
+    font-size: 80px;
+
+  }
+
+}
+
+
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+
+@media screen and (max-width: 600px) {
+
+  div.example {
+
+    font-size: 30px;
+
+  }
+
+}
+
+
+
+
+
+.topnav {
+
+  overflow: hidden;
+
+  background-color: rgba(0,0,0,0.1);
+
+}
+
+
+
+.topnav a {
+
+  float: left;
+
+  display: block;
+
+  color: #f2f2f2;
+
+  text-align: center;
+
+  padding: 14px 16px;
+
+  text-decoration: none;
+
+  font-size: 17px;
+
+}
+
+
+
+.topnav a:hover {
+
+  background-color: #ddd;
+
+  color: black;
+
+}
+
+
+
+.topnav a.active {
+
+  color: white;
+
+}
+
+
+
+.topnav .icon {
+
+  display: none;
+
+}
+
+
+
+@media screen and (max-width: 600px) {
+
+  .topnav a:not(:first-child) {display: none;}
+
+  .topnav a.icon {
+
+    float: right;
+
+    display: block;
+
+  }
+
+}
+
+
+
+@media screen and (max-width: 600px) {
+
+  .topnav.responsive {position: relative;}
+
+  .topnav.responsive .icon {
+
+    position: absolute;
+
+    right: 0;
+
+    top: 0;
+
+  }
+
+  .topnav.responsive a {
+
+    float: none;
+
+    display: block;
+
+    text-align: left;
+
+  }
+
+}
+
+
+
+</style>
+
+<body>
+
+<div class="topnav" id="myTopnav">
+
+  <a href="articles.html">Articles</a>
+
+  <a href="index.html">Portfolio</a>
+
+  <a href="summary.html" >Cliosuite</a>
+
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+
+    <i class="fa fa-bars"></i>
+
+  </a>
+
+</div>
+
+    <div class="bg-image"></div>
+
+    <div class="glass-panel">
+
+  <h3 style="font-size:3.5vw;color:white;">Modern-day online selling </h3>
+
+
+
+<h3>
+
+In June 2018, I started exploring various online channels for selling local and imported goods in India. There are many individuals like me, especially women, who are in a situation where they do not have knowledge of all the profitable channels. With the selling techniques evolving fast, it might not lead to a profitable business if we do not keep up, just like technology. Within months of starting, I knew how difficult it was for small sellers.<br/>
+
+After exploring how online brands operate, I came to the conclusion that for an online business to survive for a considerable period of time, they need to have 1. Branding and 2. Sales. My initial choices were a marketplace - Amazon or Flipkart, and a website, thinking these two were sufficient for me to get started. But eventually, they both weren't sufficient at all. I was also considering dropshipping. I created stores in Shopify, BigCommerce, WooCommerce, etc. that have dropshipping tools and compared them. But I had to go with Godaddy due to various reasons, including lesser monthly rental, though this choice forced me to adopt the inventory model of selling.<br/>
+
+The consumer goods market overall looks promising. Small and mid-sized brands and retailers are moving the economy forward at a more granular level. Meeting the consumer's specific needs, some also provide services along with the goods that help them gain customer loyalty. From an expert's view, a general store is best to experiment with different categories of goods, and a niche store can provide better conversion rates. Either way, a seller has to experiment for a while to decide what the target customers actually want. That demands a lot of practical marketing skills and tools, and funds to run campaigns and time to keep the audience engaged. <br/>
+
+For a naive seller, it is always better to start with dropshipping or affiliate marketing to lower the investment required in holding inventory. A seller who wishes to go with the traditional inventory model should choose the items and quantity carefully to avoid losses. The latter is riskier and sellers started adopting dropshipping rapidly after 2010. This model too requires a lot of research, and the glitches and inefficiencies in international logistics eventually led sellers to switch back to buying inventory manufactured in China or locally, and selling it through online or offline stores, the online presence being inevitable in both cases. Affiliate marketing, on the other hand, continues to grow at a steady rate. I am talking about the global scenario and not just India.<br/>
+
+There are tons of dropshipping websites and tools integrated with the online store providers, and shopping carts. Oberlo, Dropified, DropshipSpy, Importify, Aliexpress Dropshipping, etc. are a few that can be used with a Shopify store. API2Cart has API-based easy integrations with different platforms. A WordPress plugin helps import products for both dropshipping and affiliate marketing. All tools aim to solve a common problem and that is to reduce the hassle involved in importing product details to a store, managing orders, and inventory and tracking sales.<br/>
+
+As a seller, I am always interested in every possible channel available today, be it through a marketplace, a referral selling platform, social media, influencer's audience, podcasts, website, content-based recommendation sites, or even direct selling. The ultimate goal is to develop a trusted brand and maximize sales.<br/>
+
+There are several challenges today that small and mid-sized sellers face while selling goods online:<br/>
+
+High Competition from bigger sellers (Price, Marketplace Score, etc.)<br/>
+
+No proper branding<br/>
+
+Concern over Counterfeit goods and fake buyers and sellers.<br/>
+
+No personalized customer support<br/>
+
+Challenging SEO and costly advertising<br/>
+
+Continuous social media marketing<br/>
+
+Influencer driven selling platforms are also marketplaces<br/>
+
+Shipment time from China is not acceptable anymore in dropshipping<br/>
+
+We need a platform that will help mitigate these issues and make the lives of sellers easier and help them make profits as fast as possible. The starting point for selling nevertheless is always a marketplace like Amazon, eBay, Flipkart, or Snapdeal. But a study on Amazon buying patterns brings out some serious issues and observations:<br/>
+
+Nearly 70% of Amazon Shoppers are Either ‘Moderately’ or ‘Very’ Concerned About Counterfeit Products on Amazon => there is a need for extra trust<br/>
+
+Over 50% of Amazon Shoppers Aren’t Willing to Go Beyond the Second Page => there is a need for extra visibility<br/>
+
+For multiple sellers for a product, Amazon has its own algorithm to select the default seller <br/>
+
+Price, shipping, and reviews hold the key to Amazon shoppers’ hearts.<br/>
+
+Market Share for Big Brands Will Erode, an opportunity for newer brands (private labeling)<br/>
+
+More Shoppers Will Rely on Alexa => need for voice search optimization<br/>
+
+Due to these reasons, sellers are now gravitating towards newer ways of targeting hyperlocal consumers like influential marketing using Whatsapp, Instagram or Facebook where micro-influencers get sales for a commission. DropshipSpy is the only portal that provides access to social media influencers and Facebook audiences together.<br/>
+
+Cliosight aims to build a platform that will bring together all these solutions. Sellers will then not have to visit different portals, websites, and hosting services to utilize or get access to information about what's best in the market. Tools can always be provided in a more flexible and cost-effective way, requiring less manual work.<br/>
+
+In the upcoming posts, I am going to describe the role of deep learning in reaching some of these goals:<br/>
+
+1. Product import tool and API for Dropshipping or Affiliate marketing<br/>
+
+2. Quick and Automated Social media marketing <br/>
+
+3. Integration with referral selling with a better location-centric algorithm.
+</h3>
+
+
+
+</div>
+
+
+
+<script>
+
+function myFunction() {
+
+  var x = document.getElementById("myTopnav");
+
+  if (x.className === "topnav") {
+
+    x.className += " responsive";
+
+  } else {
+
+    x.className = "topnav";
+
+  }
+
+}
+
+</script>
+
+</body>
+
+</html>
