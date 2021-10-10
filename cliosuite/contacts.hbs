@@ -1,0 +1,962 @@
+<style>
+.form-large{
+	    font-size: 23px;
+	}
+
+	.form-large .control-label{
+	    padding-top: 20px;
+	    padding-bottom: 20px;
+	    line-height: normal;
+	}
+
+	.form-large input, .form-large  button, .form-large select{
+	    font-size: 23px;
+	    padding: 15px;
+	    height: 60px;
+	    line-height: normal;
+	}
+	
+	.datalist, .select {
+		font-size: 23px;
+		height: auto;
+  	line-height: normal;
+		background-color: white;
+	}
+	
+	
+</style>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+
+<div id="top"  class="container" >
+<div class="row">
+<div class="card" style="width:100%; border-radius:5px; border-color: grey; border-width:1px; margin-bottom:10px;background-color:white;" >
+<div class="card-body">
+<div class="row">
+<div class="col" style="margin-bottom:0px;display: flex; justify-content: center;">
+<h2 style="font-size:35px;color:darkcyan;font-weight:italic;">Contacts Management </h2>
+</div>
+</div>
+<hr style="border-color: black">
+
+<div class="row" style="display: flex; justify-content: center;padding-top:0px;margin:0px;">
+
+<div class="col" style="display: flex; justify-content: center;margin-bottom:5px;">
+<button onclick="window.location='#allgroups'" style="width:100%;" class="btn btn-link btn-lg btn-block btn-huge"><font color="darkcyan" size="5">All Groups</font></button>
+</div>
+
+<div class="col" style="display: flex; justify-content: center;margin-bottom:5px;">
+<button onclick="window.location='#allcontacts'" style="width:100%;" class="btn btn-link btn-lg btn-block btn-huge"><font color="darkcyan" size="5">All Contacts</font></button>
+</div>
+
+<div class="col" style="display: flex; justify-content: center;margin-bottom:5px;">
+<button onclick="window.location='#statusUpdate'" style="width:100%;" class="btn btn-link btn-lg btn-block btn-huge"><font color="darkcyan" size="5">Change Status</font></button>
+</div>
+
+<div class="col" style="display: flex; justify-content: center;margin-bottom:5px;">
+<button onclick="window.location='#filterSort'" style="width:100%;" class="btn btn-link btn-lg btn-block btn-huge"><font color="darkcyan" size="5">Filter & Sort</font></button>
+</div>
+
+<div class="col" style="display: flex; justify-content: center;margin-bottom:5px;">
+<button onclick="window.location='#csvGroupsAssignment'" style="width:100%;" class="btn btn-link btn-lg btn-block btn-huge"><font color="darkcyan" size="5">CSV Assignment</font></button>
+</div>
+
+<div class="col" style="display: flex; justify-content: center;margin-bottom:5px;">
+<button onclick="importContacts()" style="width:100%;" class="btn btn-link btn-lg btn-block btn-huge"><font color="darkcyan" size="5">Import Contacts into CSV</font></button>
+</div>
+
+<div class="col" style="display: flex; justify-content: center;margin-bottom:5px;">
+<button onclick="window.open('/externalAccounts')" style="width:100%;" class="btn btn-link btn-lg btn-block btn-huge"><font color="darkcyan" size="5">Integrate Email Accounts</font></button>
+</div>
+
+<div class="col" style="display: flex; justify-content: center;margin-bottom:5px;">
+<button onclick="window.open('/calls')" style="width:100%;" class="btn btn-link btn-lg btn-block btn-huge"><font color="grey" size="5">Collaboration & Support</font></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+function importContacts(){
+	
+}
+</script>
+
+<div class="row">
+
+<div class="col-lg-6">
+<div class="row">
+<div id="searchContact" class="card card-body" style="padding-bottom:5px;margin-bottom:10px;border-color:grey; border-width:1px; border-radius:5px; background-color:white;margin-right:2px;">
+
+<h2 style=" display: flex; justify-content: center;"> <font color="darkcyan">Search Contact</font></h2>
+<hr style="border-color: black">
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-12" style="margin-bottom:0px;">
+    <select id="contactid_list" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="contactid_list">
+    <option value="" Selected>Select Contact ID</option>
+    {{#each contacts}}  
+    <option value="{{this.contactID}}">{{this.contactID}}</option>
+    {{/each}}
+    </select>
+</div> 
+
+</div>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-12" style="margin-bottom:0px;">
+    <select id="contactEmail_list" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="contactemail_list">
+    <option value="" Selected>Select Email ID</option>
+    {{#each contacts}}  
+    <option value="{{this.contactEmail}}">{{this.contactEmail}}</option>
+    {{/each}}
+    </select>
+</div> 
+
+</div>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-12" style="margin-bottom:0px;">
+    <select id="contactfname_list" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="contactfname_list">
+    <option value="" Selected>Select First & Last Name</option>
+    {{#each contacts}}  
+    <option value="{{this.contactFirstName}}-{{this.contactLastName}}">{{this.contactFirstName}} &nbsp;{{this.contactLastName}}</option>
+    {{/each}}
+    </select>
+</div> 
+
+</div>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-9" style="margin-bottom:0px;">
+    <select id="contactPhone_list" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="contactphone_list">
+    <option value="" Selected>Select Phone Number</option>
+    {{#each contacts}}  
+    <option value="{{this.contactPhone}}">{{this.contactPhone}}</option>
+    {{/each}}
+    </select>
+</div> 
+
+<div class="col-lg-3" style="margin-bottom:10px;display:flex;justify-content:right;">
+<button onclick="goToContactID()" id="searchContactID" class="btn btn-dark form-large" style="border-radius: 5px; height:60px; width:100%;">Go</button>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="col-lg-6">
+<div class="row">
+<div id="searchGroup" class="card card-body" style="padding-bottom:5px;margin-bottom:10px;margin-left:2px;border-color:grey; border-width:1px; border-radius:5px; background-color:white;">
+
+<h2 id="" style=" display: flex; justify-content: center;"> <font color="darkcyan">Search Group</font></h2>
+<hr style="border-color: black">
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-12" style="margin-bottom:0px;">
+    <select id="groupid_list" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="groupid_list">
+    <option value="" Selected>Select Group ID</option>
+    {{#each groups}}  
+    <option value="{{this.groupID}}">{{this.groupID}}</option>
+    {{/each}}
+    </select>
+</div> 
+
+</div>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-12" style="margin-bottom:0px;">
+    <select id="groupEmail_list" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="groupEmail_list">
+    <option value="" Selected>Select Email ID</option>
+    {{#each groups}}  
+    <option value="{{this.groupEmail}}">{{this.groupEmail}}</option>
+    {{/each}}
+    </select>
+</div> 
+
+</div>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-12" style="margin-bottom:0px;">
+    <select id="groupName_list" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="groupName_list">
+    <option value="" Selected>Select Group Name</option>
+    {{#each groups}}  
+    <option value="{{this.groupName}}">{{this.groupName}}</option>
+    {{/each}}
+    </select>
+</div> 
+
+</div>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-9" style="margin-bottom:0px;">
+    <select id="groupPhone_list" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="groupPhone_list">
+    <option value="" Selected>Select Admin ID</option>
+    {{#each groups}}  
+    <option value="{{this.groupAdminID}}">{{this.groupAdminID}}</option>
+    {{/each}}
+    </select>
+</div> 
+
+<div class="col-lg-3" style="margin-bottom:10px;display:flex;justify-content:right;">
+	<button onclick="goToGroupID()" id="searchGroupID" class="btn btn-dark form-large" style="border-radius: 5px; height:60px; width:100%;">Go</button>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div id="statusUpdate" class="card card-body" style="padding-bottom:5px;margin-bottom:10px;border-color:grey; border-width:1px; border-radius:5px; background-color:white;">
+
+<h2 style=" display: flex; justify-content: center;"> <font color="darkcyan">Update Contact Status</font></h2>
+<hr style="border-color: black">
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-2" style="margin-bottom:0px;">
+<h3 style="display: flex; justify-content: left;"><b>Contact ID:</b>&nbsp;&nbsp;</h3>
+</div>
+
+<div class="col-lg-5" style="margin-bottom:0px;">
+    <select id="contactid_list_status" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="contactid_list_status">
+    <option value="" Selected>Select Contact ID</option>
+    {{#each contacts}}  
+    <option value="{{this.contactID}}">{{this.contactID}}</option>
+    {{/each}}
+    </select>
+</div>
+
+<div class="col-lg-5" style="margin-bottom:0px;">
+<select id="contact_status" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="contact_status">
+<option value="" Selected>Select Action</option>
+<option value="delete">Delete</option>
+<option value="deactivate">Deactivate</option>
+<option value="activate">Activate</option>
+<option value="blacklist">Blacklist</option>
+<option value="whitelist">Whitelist</option>
+<option value="block">Block</option>
+<option value="unblock">Unblock</option>
+</select>
+</div> 
+</div>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-2" style="margin-bottom:0px;">
+<h3 style="display: flex; justify-content: left;"><b>Reason:</b>&nbsp;&nbsp;</h3>
+</div>
+
+<div class="col-lg-7" style="margin-bottom:10px;">
+<div class="input-search">
+<input id="contactStatusReason" class="form-large form-control" type="text" placeholder="Please state the reason for status change" />
+</div>
+</div>
+
+<div class="col-lg-3" style="margin-bottom:10px;display:flex;justify-content:right;">
+<button onclick="changeContactStatus()" class="btn btn-dark form-large" style="border-radius: 5px; height:60px; width:100%;">Change Status</button>
+</div>
+</div>
+<br/>
+
+</div>
+
+<div id="grpstatusUpdate" class="card card-body" style="padding-bottom:5px;margin-bottom:10px;border-color:grey; border-width:1px; border-radius:5px; background-color:white;">
+
+<h2 style=" display: flex; justify-content: center;"> <font color="darkcyan">Update Group Status</font></h2>
+<hr style="border-color: black">
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-2" style="margin-bottom:0px;">
+<h3 style="display: flex; justify-content: left;"><b> Group ID:</b>&nbsp;&nbsp;</h3>
+</div>
+
+<div class="col-lg-5" style="margin-bottom:0px;">
+    <select id="groupid_list_status" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="groupid_list_status">
+    <option value="" Selected>Select Group ID</option>
+    {{#each groups}}  
+    <option value="{{this.groupID}}">{{this.groupID}}</option>
+    {{/each}}
+    </select>
+</div>
+
+<div class="col-lg-5" style="margin-bottom:0px;">
+<select id="group_status" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="group_status">
+<option value="" Selected>Select Action</option>
+<option value="delete">Delete</option>
+<option value="deactivate">Deactivate</option>
+<option value="activate">Activate</option>
+<option value="blacklist">Blacklist</option>
+<option value="whitelist">Whitelist</option>
+<option value="block">Block</option>
+<option value="unblock">Unblock</option>
+</select>
+</div> 
+</div>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+<div class="col-lg-2" style="margin-bottom:0px;">
+<h3 style="display: flex; justify-content: left;"><b>Reason:</b>&nbsp;&nbsp;</h3>
+</div>
+
+<div class="col-lg-7" style="margin-bottom:10px;">
+<div class="input-search">
+<input id="groupStatusReason" class="form-large form-control" type="text" placeholder="Please state the reason for status change" />
+</div>
+</div>
+
+<div class="col-lg-3" style="margin-bottom:10px;display:flex;justify-content:right;">
+<button onclick="changeGroupStatus()" class="btn btn-dark form-large" style="border-radius: 5px; height:60px; width:100%;">Change Status</button>
+</div>
+</div>
+<br/>
+
+</div>
+</div>
+
+<div class="row">
+
+<div class="col">
+<div class="row">
+<div id="filterSort" class="card card-body" style="margin-right:2px;padding-bottom:5px;margin-bottom:10px;border-color:grey; border-width:1px; border-radius:5px; background-color:white;">
+
+<h2 style=" display: flex; justify-content: center;"> <font color="darkcyan">Filter & Sort Contacts</font></h2>
+<hr style="border-color: black">
+
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-12" style="margin-bottom:0px;">
+    <select id="contactStatus_list" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="contactStatus_list">
+    <option value="customer">Customer or Client</option>
+    <option value="business">Business Partner</option>
+    <option value="supplier">Supplier or Distributor</option>
+    <option value="entity">Cliosuite Entity</option>
+    <option value="hire">Candidate for Hiring</option>
+    <option value="hire">Personnel</option>
+    <option value="student">Student</option>
+    <option value="servicepartner">VAS Partner</option>
+    </select>
+</div> 
+</div>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-12" style="margin-bottom:0px;">
+    <select id="contactStatus_list" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="contactStatus_list">
+    <option value="active">Active</option>
+    <option value="archived">Archived</option>
+    <option value="blacklisted">Blacklisted</option>
+    <option value="whitelisted">Whitelisted</option>
+    <option value="blocked">Blocked</option>
+    <option value="all">All Active</option>
+    <option value="all">All Inactive</option>
+    </select>
+</div> 
+
+</div>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+<div class="col-lg-6" style="margin-bottom:10px;display:flex;justify-content:right;">
+<button onclick="filterContacts()" id="filter" class="btn btn-dark form-large" style="border-radius: 5px; height:60px; width:100%;">Filter Contacts</button>
+</div>
+
+<div class="col-lg-6" style="margin-bottom:10px;display:flex;justify-content:right;">
+<button onclick="clearFilters()" id="filter" class="btn btn-default form-large" style="border-radius: 5px; border-color:black; border-width:1px;height:60px; width:100%;">Clear All Filters</button>
+</div>
+
+</div>
+<br/>
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-3" style="margin-bottom:0px;">
+<h3 style="display: flex; justify-content: left;"><b>Sort by:</b>&nbsp;&nbsp;</h3>
+</div>
+
+<div class="col-lg-9" style="margin-bottom:0px;">
+<select id="sortContactsList" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="sortContactsList">
+	<option value="alpha">Name (Ascending)</option>
+	<option value="alpha1">Name (Descending)</option>
+	<option value="callsNo">Highest # of Calls</option>
+</select>
+</div>
+
+</div>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+<div class="col-lg-6" style="margin-bottom:10px;display:flex;justify-content:right;">
+<button onclick="sortContacts()" class="btn btn-dark form-large" style="border-radius: 5px; height:60px; width:100%;">Sort</button>
+</div>
+
+<div class="col-lg-6" style="margin-bottom:10px;display:flex;justify-content:right;">
+<button onclick="defaultOrderContacts()" class="btn btn-default form-large" style="border-radius: 5px; height:60px; width:100%;border-color:black;">Default Order</button>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="col">
+<div class="row">
+<div id="filterSort" class="card card-body" style="padding-bottom:5px;margin-bottom:10px;border-color:grey; border-width:1px; border-radius:5px; background-color:white;margin-left:2px;">
+
+<h2 style=" display: flex; justify-content: center;"> <font color="darkcyan">Filter & Sort Groups</font></h2>
+<hr style="border-color: black">
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col" style="margin-bottom:0px;">
+    <select id="groupCategory_list" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="groupCategory_list">
+    	<option value="customer" selected>Customer Support</option>
+    	<option value="it" >Technical</option>
+    	<option value="business">Business</option>
+    	<option value="operations" >Operations</option>
+    	<option value="training" >Training</option>
+    	<option value="interview" >Interview</option>
+    	<option value="hr" >HR & Finance</option>
+    	<option value="vas" >VAS Partners</option>
+    </select>
+</div>
+
+</div>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col" style="margin-bottom:0px;">
+    <select id="scope_list" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="scope_list">
+  	<option value="customer" >Private</option>
+  	<option value="supplier" >Department</option>
+  	<option value="business" >Company</option>
+  	<option value="entity" Selected>Public</option>
+    </select>
+</div>
+
+<div class="col" style="margin-bottom:0px;">
+<select id="groupStatus_list" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="contactStatus_list">
+<option value="active">Active</option>
+<option value="archived">Archived</option>
+<option value="blacklisted">Blacklisted</option>
+<option value="whitelisted">Whitelisted</option>
+<option value="blocked">Blocked</option>
+<option value="all">All Active</option>
+<option value="all">All Closed</option>
+</select>
+</div> 
+
+</div>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+<div class="col" style="margin-bottom:10px;display:flex;justify-content:right;">
+<button onclick="filterGroups()" id="filter" class="btn btn-dark form-large" style="border-radius: 5px; height:60px; width:100%;">Filter Groups</button>
+</div>
+<div class="col" style="margin-bottom:10px;display:flex;justify-content:right;">
+<button onclick="clearGroupFilters()" id="group_filter" class="btn btn-default form-large" style="border-radius: 5px; border-color:black; border-width:1px;height:60px; width:100%;">Clear Filters</button>
+</div>
+
+</div>
+<br/>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+
+<div class="col-lg-3" style="margin-bottom:0px;">
+<h3 style="display: flex; justify-content: left;"><b>Sort by:</b>&nbsp;&nbsp;</h3>
+</div>
+
+<div class="col-lg-9" style="margin-bottom:0px;">
+<select id="group_sort_list" style="height:60px;margin-bottom:20px;width:100%" class=" form-large form-control" name="group_sort_list">
+	<option value="alphaGrp" Selected>Name (Ascending)</option>
+	<option value="alpha1Grp">Name (Descending)</option>
+</select>
+</div>
+</div>
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+<div class="col-lg-6" style="margin-bottom:10px;display:flex;justify-content:right;">
+<button onclick="sortGroups()" class="btn btn-dark form-large" style="border-radius: 5px; height:60px; width:100%;">Sort</button>
+</div>
+
+<div class="col-lg-6" style="margin-bottom:10px;display:flex;justify-content:right;">
+<button onclick="sortGroups()" class="btn btn-default form-large" style="border-radius: 5px; height:60px; width:100%; border-color:black;">Default Order</button>
+</div>
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="container">
+<div class="row">
+<div id="csvGroupsAssignment" class="card card-body" style="padding-bottom:5px;margin-bottom:10px;border-color:grey; border-width:1px; border-radius:5px; background-color:white;">
+
+<h2 style=" display: flex; justify-content: center;"> <font color="darkcyan">Assign Groups to Contacts</font></h2>
+<hr style="border-color: black">
+
+<div class="row form-large" style="display: flex; justify-content: left;padding-left:0px;padding-right:0px;">
+
+<div class="col-lg-7" style="margin-bottom:10px;">
+<input type="text" class="form-control form-large" id="csvAddContacts" placeholder="CSV Filepath of Group ID, Contact ID and Email ID List">
+</div>
+
+<div class="col-lg-3" style="margin-bottom:10px;">
+<button onclick="assignCSVContacts()" class="btn btn-dark form-large" style="border-width:1px;border-radius: 5px; height:60px; width:100%;">Assign Contacts</button>
+</div>
+
+<div class="col-lg-2" style="margin-bottom:10px;">
+<button onclick="window.open('/files#uploadFiles')" class="btn btn-default form-large" style="border-color:black;border-width:1px;border-radius: 5px; height:60px; width:100%;">Upload CSV</button>
+</div>
+</div>
+<br/>
+</div>
+
+</div>
+</div>
+
+
+<div class="container">
+<div class="row">
+<div class="card card-body" style="margin-bottom:10px;border-color:grey; border-width:1px; border-radius:5px; background-color:lightcyan;">
+<div id="allgroups" class="row" style="margin-bottom:0px;margin-left:0px;padding-bottom:10px;">
+<div class="col-lg-9">
+<h2 style=" display: flex; justify-content: left;font-weight:italic;"> <font color="darkcyan">All Groups</font> </h2>
+</div>
+<div class="col-lg-3">
+<h2 style=" display: flex; justify-content: center;text-decoration:underline;"> <font color="black"><a href="#searchGroup">Search Group >> </a></font> </h2>
+</div>
+</div>
+
+{{#each groups}}
+<p>
+<a id="{{this.groupID}}_c" class="btn btn-default form-large" style="width:100%; height:100%; padding:20px;border-color:black; border-width:1px;background-color:white;" data-toggle="collapse" href="#{{this.groupID}}" role="button" aria-expanded="false" aria-controls="{{this.groupID}}"><font size="5px" color="darkorange">{{this.groupID}}</font>&nbsp;&nbsp;<font size="5px" color="#23bacf"> {{this.groupName}}</font></a>
+</p>
+  <div class="collapse multi-collapse" id="{{this.groupID}}">
+    <div class="card card-body" style="padding-bottom:5px;margin-bottom:10px;border-color:black; border-width:1px; border-radius:5px; background-color:white;">
+    
+    <div class="row">
+    
+    <div class="col-md-12">
+    
+    <div class="row">
+    <div class="col-md-9">
+    <div class="row" style="display: flex; justify-content: left; padding-left:35px;padding-right:0px;">	
+	<h3><b>Details of Group ID:&nbsp;&nbsp; </b></h3><h3 id="groupID_{{this.id}}">{{this.groupID}}</h3>
+	</div>
+	<div class="row" style="display: flex; justify-content: left; padding-left:20px;padding-right:20px;">
+    <div class="col">
+	<h3><b>Group Name:</b>&nbsp;&nbsp; {{this.groupName}}</h3>
+	</div>
+	</div>
+	
+	<div class="row" style="display: flex; justify-content: left; padding-left:20px;padding-right:20px;">
+    <div class="col">
+	<h3><b>Group Tag Line:</b>&nbsp;&nbsp; {{this.groupTagLine}}</h3>
+	</div>
+	</div>
+	
+	<div class="row" style="display: flex; justify-content: left; padding-left:20px;padding-right:20px;">
+    <div class="col">
+	<h3><b>Group Description:</b>&nbsp;&nbsp; {{this.groupDesc}}</h3>
+	</div>
+	</div>
+	
+	</div>
+	
+	<div class="col-md-3">
+	<img src={{this.groupLogoFilename}} style="width:100%;"/>
+	</div>
+	
+	</div>
+	
+    <div class="row" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+    	
+    	<div class="col">
+    	<h3><b>Associated Department:</b>&nbsp;&nbsp; {{this.groupCategory}}</h3>
+    	</div>
+    	<div class="col">
+    	<h3><b>Group Scope:</b>&nbsp;&nbsp; {{this.groupScope}}</h3>
+    	</div>
+    	</div>
+    	
+    	<div class="row" style="display: flex; justify-content: left; padding-left:20px;padding-right:20px;">	
+    	<div class="col">
+    	<h3><b>Group Email:</b>&nbsp;&nbsp; {{this.groupEmail}}</h3>
+    	</div>
+    		
+    	<div class="col">
+    	<h3><b>Group Admin ID:</b>&nbsp;&nbsp; {{this.groupAdminID}}</h3>
+    	</div>
+    	</div>
+    	
+    	<div class="row" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+    	<div class="col">
+    	<h3> <b>Group Shared Drive Link:</b>&nbsp;&nbsp; {{this.sharedDriveLink}}</h3>
+    	</div>
+    	
+    	</div>
+    	
+    	<div class="row" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+    	<div class="col">
+    	<h3><b>Group Website:</b>&nbsp;&nbsp; {{this.groupWebsite}}</h3>
+    	</div>
+    	
+    	<div class="col">
+    	<a href="{{this.groupSocialMedia}}"><h3> <b>Group Social Media Link</b></h3></a>
+    	</div>
+    	</div>
+    	
+    	<div class="row" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+    	<div class="col">
+    	<h3><b>Group Start Date:</b>&nbsp;&nbsp;  {{this.groupStart}},&nbsp;&nbsp; </h3>
+    	</div>
+    	<div class="col">
+    	<h3><b>Group End Date:</b>&nbsp;&nbsp;  {{this.groupEnd}},&nbsp;&nbsp; </h3>
+    	</div>
+    	
+    	<div class="row" style="display: flex; justify-content: left;padding-left:20px;padding-right:20px;">
+    	<div class="col">
+    	<h3><b>Created:</b>&nbsp;&nbsp;  {{this.groupCreatedAt}},&nbsp;&nbsp; </h3>
+    	</div>
+    	<div class="col">
+    	<h3><b>Modified:</b>&nbsp;&nbsp;  {{this.groupModifiedAt}}</h3></div>
+    	</div>
+    	</div>
+    	
+    	<br/>
+    	<div class="row" style="display: flex; justify-content: left;padding-left:10px;padding-right:10px;">
+    	
+    	<div class="col-md-3" style="display: flex; justify-content: center;margin-bottom:5px;">
+    	<button id="{{this.id}}" onclick="return popitup(document.getElementById('groupID_{{this.id}}').innerHTML.trim())" style="width:100%;border-color:white;height:60px;" class="btn btn-primary btn-lg btn-block btn-huge"><font size="5">Edit Details</font></button>
+    	</div>
+    	
+    	<div class="col-md-3" style="display: flex; justify-content: center;margin-bottom:5px;">
+    	<button onclick="return popitup1(document.getElementById('groupID_{{this.id}}').innerHTML.trim())" style="width:100%;height:60px;" class="btn btn-warning btn-lg btn-block btn-huge"><font size="5">Contacts</font></button>
+    	</div>
+    	
+    	<div class="col-md-3" id="delContactButton" style="display: flex; justify-content: center;margin-bottom:5px;">
+    	<button onclick="deleteGroup()" style="width:100%;border-color:white;height:60px;" class="btn btn-danger btn-lg btn-block btn-huge"><font color="white" size="5">Delete</font></button>
+    	</div>
+    	
+    	<div class="col-md-3" style="display: flex; justify-content: center;margin-bottom:5px;">
+    	<button onclick="location.reload()" type="submit" style="width:100%;border-color:white;height:60px;" class="btn btn-info btn-lg btn-block btn-huge"><font color="white" size="5">Refresh</font></button>
+    	</div>
+    	
+    	</div>
+    	<br/>
+    	</div>
+    	
+    	</div>
+    	
+    	</div>
+    	
+    	</div>
+
+{{/each}}
+</div>
+</div>
+</div>
+</div>
+
+<div class="container">
+<div class="row">
+<div class="card card-body" style="margin-bottom:10px;border-color:grey; border-width:1px; border-radius:5px; background-color:lightcyan;">
+<div id="allcontacts" class="row" style="margin-bottom:10px;margin-left:0px;padding-bottom:0px;">
+<div class="col-lg-9">
+<h2 style=" display: flex; justify-content: left;font-weight:italic;"> <font color="darkcyan">All Contacts</font> </h2>
+</div>
+<div class="col-lg-3">
+<h2 style=" display: flex; justify-content: center;text-decoration:underline;"> <font color="black"><a href="#searchContact">Search Contact >></a></font> </h2>
+</div>
+</div>
+
+{{#each contacts}}
+<p>
+<a id="{{this.contactID}}_c" class="btn btn-default form-large" style="width:100%; height:100%; padding:20px;border-color:black; border-width:1px;" data-toggle="collapse" href="#{{this.contactID}}" role="button" aria-expanded="false" aria-controls="{{this.contactID}}"><font size="5px" color="darkorange">{{this.contactID}}</font>&nbsp;&nbsp;<font size="5px" color="#23bacf"> {{this.contactFirstName}}&nbsp;{{this.contactLastName}}</font></a>
+</p>
+
+  <div class="collapse multi-collapse" id="{{this.contactID}}">
+    <div class="card card-body" style="padding-bottom:5px;margin-bottom:10px;border-color:black; border-width:1px; border-radius:5px; background-color:white;">
+    
+    <div class="row">
+    
+    <div class="col-lg-8">
+    
+    <div class="row" style="display: flex; justify-content: left; padding-left:35px;padding-right:0px;">	
+	<h3><b>Details of Contact ID:&nbsp;&nbsp; </b></h3><h3 id="contactID_{{this.id}}">{{this.contactID}}</h3>
+	</div>
+	
+	<div class="row" style="display: flex; justify-content: left; padding-left:20px;padding-right:0px;">
+    <div class="col">
+	<h3><b>Full Name:</b>&nbsp;&nbsp; {{this.title}} &nbsp; {{this.contactFirstName}} &nbsp; {{this.contactMiddleName}} &nbsp; {{this.contactLastName}}</h3>
+	</div>
+	</div>
+	
+	<div class="row" style="display: flex; justify-content: left; padding-left:20px;padding-right:0px;">
+    <div class="col">
+	<h3><b>Contact SSN:</b>&nbsp;&nbsp; {{this.ssn}}</h3>
+	</div>
+	</div>
+	
+    <div class="row" style="display: flex; justify-content: left;padding-left:20px;padding-right:0px;">
+    	<div class="col">
+    	<h3>{{this.contactPhone}}</h3>
+    	</div>
+    	<div class="col">
+    	<h3>{{this.contactPhone1}}</h3>
+    	</div>
+    </div>
+    <div class="row" style="display: flex; justify-content: left;padding-left:20px;padding-right:0px;">
+    	<div class="col">
+    	<h3><a href="mailto:{{this.contactEmail}}">{{this.contactEmail}}</a></h3>
+    	</div>
+    	<div class="col">
+    	<h3><a href="mailto:{{this.contactEmail1}}">{{this.contactEmail1}}</a></h3>
+    	</div>
+    	<div class="col">
+    	<h3><a href="mailto:{{this.contactEmail2}}">{{this.contactEmail2}}</a></h3>
+    	</div>
+    	</div>
+    	
+    	<div class="row" style="display: flex; justify-content: left; padding-left:20px;padding-right:0px;">	
+    	<div class="col">
+    	<h3>
+    	<b>Home Address:</b>&nbsp;&nbsp; {{this.contactAddress}}</h3>
+    	</div>
+    	</div>
+    	
+    	<div class="row" style="display: flex; justify-content: left; padding-left:20px;padding-right:0px;">	
+    	<div class="col">
+    	<h3>
+    	<b>Work Address:</b>&nbsp;&nbsp; {{this.contactAddress1}}</h3>
+    	</div>
+    	</div>
+    	
+    	<div class="row" style="display: flex; justify-content: left;padding-left:20px;padding-right:0px;">
+    	<div class="col">
+    	<h3> <b>Type:</b>&nbsp;&nbsp; {{this.contactType}}</h3>
+    	</div>
+    	<div class="col">
+    	<h3><b>Status:</b>&nbsp;&nbsp; {{this.contactStatus}}</h3>
+    	</div>
+    	</div>
+    	
+    	<div class="row" style="display: flex; justify-content: left;padding-left:20px;padding-right:0px;">
+    	<div class="col">
+    	<h3><b>Status update reason:</b>
+    	{{this.statusChangeReason}}</h3>
+    	</div>
+    	</div>
+    	
+    	<div class="row" style="display: flex; justify-content: left;padding-left:20px;padding-right:0px;">
+    	<div class="col">
+    	<h3><b>Birthday:</b>&nbsp;&nbsp;  {{this.birthday}} </h3>
+    	</div>
+    	<div class="col">
+    	<h3><b>Company:</b>&nbsp;&nbsp;  {{this.company}}</h3></div>
+    	</div>
+    	
+    	<div class="row" style="display: flex; justify-content: left;padding-left:20px;padding-right:0px;">
+    	<div class="col">
+    	<h3><a href="{{this.website}}">  {{this.website}} </a></h3>
+    	</div>
+    	<div class="col">
+    	<h3><a href="{{this.socialMedia}}">Social Media Link</a></h3>
+    	</div>
+    	</div>
+    	
+    	<div class="row" style="display: flex; justify-content: left;padding-left:20px;padding-right:0px;">
+    	<div class="col">
+    	<h3><b>Preferred time to call:</b>&nbsp;&nbsp;  {{this.call_from}} to {{this.call_to}}</h3>
+    	</div>
+    	</div>
+    	
+    	<div class="row" style="display: flex; justify-content: left;padding-left:20px;padding-right:0px;">
+    	<div class="col">
+    	<h3><b>Created:</b>&nbsp;&nbsp;  {{this.createdAt}} </h3>
+    	</div>
+    	<div class="col">
+    	<h3><b>Modified:</b>&nbsp;&nbsp;  {{this.modifiedAt}}</h3>
+    	</div>
+    	</div>
+    	
+    	
+    	</div>
+    	
+    	<div class="col-lg-4">
+    	{{#if this.multimediaFilename}}
+    	<br/>
+    	<div class="row" style="display: flex; justify-content: center;padding:0px;margin-bottom:10px;">
+    	<div class="col">
+    		<img src={{this.multimediaFilename}} style="width:100%;"/> 
+    	</div></div><br/>
+    	<div class="row" style="display: flex; justify-content: center;padding:0px;margin-bottom:10px;">
+    	<div class="col">
+    		<img src={{this.multimediaFilename1}} style="width:100%;"/> 
+    	</div>
+    	</div>
+    	{{/if}}
+    	</div>
+    	
+    	</div>
+    	
+    	<br/>
+    	<div class="row" style="display: flex; justify-content: left;padding-left:10px;padding-right:10px;">
+    	<div class="col" style="display: flex; justify-content: center;margin-bottom:5px;">
+    	<button onclick="return popitup3(document.getElementById('contactID_{{this.id}}').innerHTML.trim())" style="width:100%;border-color:white;height:60px;" class="btn btn-primary btn-lg btn-block btn-huge"><font size="5">Edit Details</font></button>
+    	</div>
+    	<div class="col" style="display: flex; justify-content: center;margin-bottom:5px;">
+    	<button onclick="getGroups(document.getElementById('contactID_{{this.id}}').innerHTML.trim())" style="width:100%;border-color:white;height:60px;" class="btn btn-warning btn-lg btn-block btn-huge"><font size="5">Groups</font></button>
+    	</div>
+    	<div class="col" id="delContactButton" style="display: flex; justify-content: center;margin-bottom:5px;">
+    	<button onclick="deleteContact(document.getElementById('contactID_{{this.id}}').innerHTML.trim())" style="width:100%;border-color:white;height:60px;" class="btn btn-danger btn-lg btn-block btn-huge"><font color="white" size="5">Delete</font></button>
+    	</div>
+    	
+    	<div class="col" style="display: flex; justify-content: center;margin-bottom:5px;">
+    	<button onclick="location.reload()" type="submit" style="width:100%;border-color:white;height:60px;" class="btn btn-info btn-lg btn-block btn-huge"><font color="white" size="5">Refresh</font></button>
+    	</div>
+    	
+    	</div>
+    	<br/>
+    </div>
+  </div>
+
+{{/each}}
+</div>
+</div>
+</div>
+
+<script>
+
+function popitup(groupID) {
+	  
+	   var URL = "/getRecords?table_mdb=groups&table_key=%7B\"group_id\"%3A\""+groupID+"\"%7D#db_data";  
+	   var h = screen.height/1.5;
+		   var w = screen.width/1.5;
+		   var left = (screen.width - w) / 2;
+		   var top = (screen.height - h) / 4;
+		   newwindow=window.open(URL,'csv','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, copyhistory=no,height='+h+',width='+w+', top=' + top + ', left=' + left);
+		   if (window.focus) {newwindow.focus()}
+		   return false;
+		   }
+
+
+function popitup1(groupID) {
+	  
+	   var URL = "/groupmembers?groupID="+groupID;  
+	   window.open(URL);
+}
+
+function popitup3(contact) {
+	  
+   var URL = "/getRecords?table_mdb=contacts&table_key=%7B\"contact_id\"%3A\""+contact+"\"%7D#db_data";  
+   var h = screen.height/1.5;
+	   var w = screen.width/1.5;
+	   var left = (screen.width - w) / 2;
+	   var top = (screen.height - h) / 4;
+	   newwindow=window.open(URL,'csv','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, copyhistory=no,height='+h+',width='+w+', top=' + top + ', left=' + left);
+	   if (window.focus) {newwindow.focus()}
+	   return false;
+	   }
+
+function deleteContact(contactID) {
+	
+	 $.post('/deleteContact',{contactID: contactID}, function(status, data){
+			if(data=="success"){
+				alert("Contact deleted successfully.");
+			}
+		}); 
+}
+
+function getGroups(contactID){
+	var URL = "/getGroups?contactID="+contactID;  
+	window.open(URL);
+}
+
+</script>
+
+<br/><br/>
+
+
+<div class="container">
+<div class="card" style="border-color:grey;border-width:1px;border-radius:5px;padding-bottom:20px;">
+<div class="card-body">
+<div class="row" style="display: fixed; justify-content: center;margin-top:15px;">
+
+<div class="col-lg-7">
+ <h1 style="color:black">Try Cliosuite's Contacts Management</h1>
+</div>
+ 
+  <div class="col-lg-3">
+ 
+  <button class="btn btn-dark btn-lg btn-block btn-huge" 
+      style="border-color:grey;width:100%; height:80px; border-width:1px;" onclick="window.open('/login', '_self');">
+  <font size="5px">LOGIN</font></button>
+  
+  </div>
+  
+  </div>
+  </div>
+  </div>
+    
+  </div>
+  <br/>
+  <br/>
+
+  <div id="features" class="container">	
+  	  
+
+  <div  style=";display: flex; justify-content: center;" class="row">
+
+  <div class="col">
+
+  <div style="justify-content: center;" class="row">
+  <button style="width:350px; border-color:grey; border-width:1px;  height:100px;   margin-bottom:10px;background-color:#4de3d3;" class="btn btn-info btn-lg btn-block btn-huge"> <font color="black" size="5">Business Focused</font></button>
+  </div>
+
+  </div>
+
+  <div class="col">
+
+  <div style="justify-content: center;" class="row">
+  <button style="width:350px; border-color:grey; border-width:1px;  height:100px; margin-bottom:10px;background-color:#4de3d3;" class="btn btn-info btn-lg btn-block btn-huge"> <font color="black" size="5">Collaborate or Notify</font></button>
+  </div>
+
+  </div>
+
+  <div class="col">
+
+  <div style="justify-content: center;" class="row">
+  <button style="width:350px; border-color:grey; border-width:1px;  height:100px;  margin-bottom:10px;background-color:#4de3d3;" class="btn btn-info btn-lg btn-block btn-huge"> <font color="black" size="5">Mail Accounts Integration</font></button>
+  </div>
+
+  </div>
+
+  </div>
+  </div>
+
+ 
+  
