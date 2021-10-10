@@ -1,0 +1,263 @@
+
+<style>
+.form-large{
+	    font-size: 23px;
+	}
+
+	.form-large .control-label{
+	    padding-top: 20px;
+	    padding-bottom: 20px;
+	    line-height: normal;
+	}
+
+	.form-large input, .form-large  button, .form-large select{
+	    font-size: 23px;
+	    padding: 15px;
+	    height: 60px;
+	    line-height: normal;
+	}
+	
+	.datalist, .select {
+		font-size: 23px;
+		height: auto;
+  	line-height: normal;
+		background-color: white;
+	}
+	
+	
+</style>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
+
+<div class="container">
+<div class="row" style=" display: flex; justify-content: right;margin-left:0px;">
+<a href="#editAssignments"><h3> <font color="black">Edit Assignments >>> </font></h3></a>
+</div>
+<div class="row">
+<div class="card card-body" style="padding-bottom:5px;margin-bottom:10px;border-color:grey; border-width:1px; border-radius:5px; background-color:white;">
+<div class="row" style=" display: flex; justify-content: center;margin-left:5px;">
+<h2> <font color="darkcyan">Groups Assigned to {{contactID}}</font></h2>
+</div>
+<hr style="border-color: black">
+<div class="row">
+<p id="contact_id" style="display:none"> {{contactID}}</p>
+</div>
+
+<div class="row" style=" display: flex; justify-content: center;">
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:5px;">
+<h3 style="color:darkcyan;text-decoration:underline">Group ID</h3>
+</div>
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:5px;">
+<h3 style="color:darkcyan;text-decoration:underline">Group Name</h3>
+</div>
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:5px;">
+<h3 style="color:darkcyan;text-decoration:underline">Group Admin ID</h3>
+</div>
+
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:5px;">
+<h3 style="color:darkcyan;text-decoration:underline">Group Email</h3>
+</div>
+</div>
+
+{{#each groups}}
+<div class="row" style="display: flex; justify-content: center;">
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:10px;">
+<h3>{{this.groupID}}</h3></div>
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:10px;">
+<h3>{{this.groupName}}</h3></div>
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:10px;">
+<h3>{{this.groupAdminID}}</h3></div>
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:0px;">
+<h3>{{this.groupEmail}}</h3></div>
+</div>
+{{/each}}
+<br/>
+</div>
+
+</div>
+
+<div id="editAssignments" class="row">
+
+<div class="card card-body" style="padding-bottom:5px;margin-bottom:10px;border-color:grey; border-width:1px; border-radius:5px; background-color:white;">
+<h2 style=" display: flex; justify-content: center;"> <font color="darkcyan">Edit Group Assignments</font></h2>
+<br/>
+
+<div class="row form-large" style="margin-bottom:10px;">
+
+<div class="col-lg-6" style="margin-bottom:10px;">
+<select id="contact_email" style="height:60px;margin-bottom:0px;width:100%" class=" form-large form-control" name="contact_email">
+<option value="">Choose from contact's email list</option>
+{{#each email_list}}  
+<option value="{{this.email1}}">{{this.email1}}</option>
+{{#if this.email2}}
+	<option value="{{this.email2}}">{{this.email2}}</option>
+{{/if}}
+{{#if this.email3}}
+	<option value="{{this.email3}}">{{this.email3}}</option>
+{{/if}}
+{{/each}}
+</select>
+</div>
+
+<div class="col-lg-6" style="margin-bottom:10px;">
+<select id="groupToAssign" style="height:60px;margin-bottom:0px;width:100%" class=" form-large form-control" name="groupToAssign">
+<option value="">List of unassigned groups</option>
+{{#each all_other_groups}}  
+<option value="{{this.groupID}}">{{this.groupID}}&nbsp;&nbsp;&nbsp; {{this.groupName}}</option>
+{{/each}}
+</select>
+</div> 
+
+</div>
+
+<div class="row form-large" style="margin-bottom:0px;">
+
+<div class="col-lg-10" style="margin-bottom:10px;margin-left:0px;">
+<input type="text" class="form-control form-large" id="csvAddContacts" placeholder="Filepath of CSV of Group IDs to be assigned to this contact">
+</div>
+
+<div class="col-lg-2" style="margin-bottom:10px;display:flex;justify-content:right;">
+<button onclick="assignGroup()" class="btn btn-primary form-large" style="border-width:1px;border-radius: 5px; height:60px; width:100%;">Assign</button>
+</div>
+</div>
+
+<br/>
+
+<div class="row form-large" style="margin-bottom:10px;">
+
+<div class="col-lg-8" style="margin-bottom:10px;">
+    <select id="assignedGroup" style="height:60px;margin-bottom:0px;width:100%" class=" form-large form-control" name="assignedGroup">
+    <option value="">List of assigned groups</option>
+    {{#each groups}}  
+    <option value="{{this.groupID}}">{{this.groupID}}&nbsp;&nbsp;&nbsp; {{this.groupName}}</option>
+    {{/each}}
+    </select>
+</div> 
+
+<div class="col-lg-2" style="margin-bottom:10px;display:flex;justify-content:right;">
+<button onclick="removeGroup()" class="btn btn-danger form-large" style="border-radius: 5px; height:60px; width:100%;">Remove</button>
+</div>
+
+<div class="col-lg-2" style="margin-bottom:0px;margin-left:0px;display: flex; justify-content: center;">
+<button onclick="location.reload()" class="btn btn-default form-large" style="border-radius: 5px; border-color:grey;height:60px; width:100%;">Reload Data</button>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function assignGroup(){
+	var groupID = document.getElementById("groupToAssign").value.trim();
+	var contactID = document.getElementById("contact_id").innerHTML.trim();
+	var contactEmailToAssign = document.getElementById("contact_email").value.trim();
+	
+	var contactsCSV = document.getElementById("csvAddContacts").value.trim();
+	if(contactID!="" && contactEmailToAssign!=""){
+	$.post('/assignContactToGroup',{groupID: groupID, contactID: contactID, email: contactEmailToAssign}, 
+			function(status, data){
+			if(data=="success"){
+				alert("Contact assigned successfully.");
+			}
+	}); 
+	if(contactsCSV!=""){
+		$.post("uploadContents?file="+CSVNameFile+"&table=group_members"+"&id="+groupID+","+contactID, function(data, status){
+			   if(status=="success"){
+				   alert("Contact assigned successfully from CSV.");
+			   }
+		});
+	}
+	}else{
+		alert('Please select an unassigned group and the corresponsding email ID to be used.');
+	}
+}
+
+function removeGroup(){
+	var contactID = document.getElementById("contact_id").innerHTML.trim();
+	var groupID = document.getElementById("assignedGroup").value.trim();
+	if(contactID!=""){
+	$.post('/removeContactFromGroup',{groupID: groupID, contactID: contactID}, function(status, data){
+		if(data=="success"){
+			alert("Contact deleted successfully.");
+		}
+	}); 
+    }else{
+    	alert("Please select an assigned contact to be remove, if listed.");
+    }
+}
+
+</script>
+
+
+<div class="container">
+<div class="card" style="border-color:grey;border-width:1px;border-radius:5px;padding-bottom:20px;">
+<div class="card-body">
+<div class="row" style="display: fixed; justify-content: center;margin-top:15px;">
+
+<div class="col-md-7">
+ <h1 style="color:black">Try Cliosuite's Contacts Management</h1>
+</div>
+ 
+  <div class="col-md-3">
+ 
+  <button class="btn btn-dark btn-lg btn-block btn-huge" 
+      style="border-color:grey;width:100%; height:80px; border-width:1px;" onclick="window.open('/login', '_self');">
+  <font size="5px">LOGIN</font></button>
+  
+  </div>
+  
+  </div>
+  </div>
+  </div>
+    
+  </div>
+  <br/>
+  <br/>
+
+  <div id="features" class="container">	
+  	  
+
+  <div  style=";display: flex; justify-content: center;" class="row">
+
+  <div class="col">
+
+  <div style="justify-content: center;" class="row">
+  <button style="width:350px; border-color:grey; border-width:1px;  height:100px;   margin-bottom:10px;background-color:#4de3d3;" class="btn btn-info btn-lg btn-block btn-huge"> <font color="black" size="5">Business Focused</font></button>
+  </div>
+
+  </div>
+
+  <div class="col">
+
+  <div style="justify-content: center;" class="row">
+  <button style="width:350px; border-color:grey; border-width:1px;  height:100px; margin-bottom:10px;background-color:#4de3d3;" class="btn btn-info btn-lg btn-block btn-huge"> <font color="black" size="5">Collaborate or Notify</font></button>
+  </div>
+
+  </div>
+
+  <div class="col">
+
+  <div style="justify-content: center;" class="row">
+  <button style="width:350px; border-color:grey; border-width:1px;  height:100px;  margin-bottom:10px;background-color:#4de3d3;" class="btn btn-info btn-lg btn-block btn-huge"> <font color="black" size="5">External Email Integration</font></button>
+  </div>
+
+  </div>
+
+  </div>
+  </div>
+
+ 
