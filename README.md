@@ -4,7 +4,7 @@
 
 <b><u>PROJECTS</u></b><br/>
 <b>1. User research</b>
-Our first project is to create a product intro, signup web app, and collect user data and other information from potential customers. This is deployed into GCP App engine.
+Our first project is to create a product intro, signup web app, and collect user data and other information from potential customers. 
 
 
 <b>2. Enterprise web data and file management</b><br/>
