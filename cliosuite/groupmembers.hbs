@@ -1,0 +1,287 @@
+
+<style>
+.form-large{
+	    font-size: 23px;
+	}
+
+	.form-large .control-label{
+	    padding-top: 20px;
+	    padding-bottom: 20px;
+	    line-height: normal;
+	}
+
+	.form-large input, .form-large  button, .form-large select{
+	    font-size: 23px;
+	    padding: 15px;
+	    height: 60px;
+	    line-height: normal;
+	}
+	
+	.datalist, .select {
+		font-size: 23px;
+		height: auto;
+  	line-height: normal;
+		background-color: white;
+	}
+	
+	
+</style>
+
+
+<div class="container">
+<div class="row" style=" display: flex; justify-content: right;margin-left:0px;">
+<a href="#editAssignments"><h3> <font color="black">Edit Assignments >>> </font></h3></a>
+</div>
+<div class="row">
+<div class="card card-body" style="padding-bottom:5px;margin-bottom:10px;border-color:grey; border-width:1px; border-radius:5px; background-color:white;">
+<div class="row">
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:0px;margin-left:5px;">
+<h2 style="display: flex; justify-content: right;"><font color="darkcyan">Contacts Assigned to {{groupID}}</font></h2>
+</div>
+<p style="display:none" id="groupID">{{groupID}}</p>
+</div>
+<hr style="border-color: black">
+<div class="row">
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:5px;">
+<h3 style="color:darkcyan;text-decoration:underline">Contact ID</h3>
+</div>
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:5px;">
+<h3 style="color:darkcyan;text-decoration:underline">Contact Email</h3>
+</div>
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:5px;">
+<h3 style="color:darkcyan;text-decoration:underline">Contact Name</h3>
+</div>
+</div>
+{{#each members}}
+<div class="row" style=" display: flex; justify-content: center;margin-bottom:0px;">
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:5px;">
+<h3>{{this.contactID}}</h3></div>
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:5px;">
+<h3>{{this.contactEmail}}</h3></div>
+<div class="col" style=" display: flex; justify-content: center;margin-bottom:5px;">
+<h3>{{this.contactName}}</h3></div>
+</div>
+
+{{/each}}
+</div>
+</div>
+
+<div class="row">
+<div id="editAssignments" class="card card-body" style="padding-bottom:5px;margin-bottom:10px;border-color:grey; border-width:1px; border-radius:5px; background-color:white;">
+<h2 style=" display: flex; justify-content: center;"> <font color="darkcyan">Edit Contacts Assignment</font></h2>
+<br/> 
+<div class="row form-large" style="margin-bottom:0px;">
+
+<div class="col-lg-12" style="margin-bottom:10px;">
+    <select id="otherContactID" style="height:60px;margin-bottom:10px;width:100%" class=" form-large form-control" name="otherContacts" placeholder="Unassigned List of Contacts">
+    <option value="">List of unassigned contacts</option>
+    {{#each all_other_contacts}} 
+    <option value="{{this.contactID}}">{{this.contactID}}&nbsp;:&nbsp;{{this.email}}&nbsp;&nbsp;{{this.email1}}&nbsp;&nbsp;{{this.email2}}&nbsp;&nbsp;({{this.contactName}})</option>
+    <div class="row form-large" style="margin-bottom:0px;">
+    </div>
+    {{/each}}
+    </select>
+    
+</div> 
+
+</div>
+
+{{#each all_other_contacts}}
+<div class="row form-large" style="margin-bottom:0px;display:none;">
+<p id="{{this.contactID}}_contact_email">{{this.email}}</p>
+<p id="{{this.contactID}}_contact_email1">{{this.email1}}</p>
+<p id="{{this.contactID}}_contact_email2">{{this.email2}}</p>
+</div>
+{{/each}}
+
+<div class="row form-large" style="display: flex; justify-content: left;">
+
+<div class="col-lg-2" style="margin-bottom:10px;">
+<select id="emailToUse" style="height:60px;margin-bottom:10px;width:100%" class=" form-large form-control" name="otherContacts" placeholder="Unassigned List of Contacts">
+<option value="contact_email">email 1</option>
+<option value="contact_email1">email 2</option>
+<option value="contact_email2">email 3</option>
+</select>
+</div>
+
+<div class="col-lg-8" style="margin-bottom:10px;">
+<input type="text" class="form-control form-large" id="csvAddContacts" placeholder="CSV Filepath of Contact ID and Email ID List (optional)">
+</div>
+
+<div class="col-lg-2" style="margin-bottom:10px;">
+<button onclick="assignContact()" class="btn btn-primary form-large" style="border-width:1px;border-radius: 5px; height:60px; width:100%;">Assign</button>
+</div>
+
+</div>
+
+
+<div class="row form-large" style="margin-bottom:0px;">
+<div class="col-lg-8" style="margin-bottom:0px;">
+    <select id="assignedContact" style="height:60px;margin-bottom:10px;width:100%" class=" form-large form-control" name="assigned_contacts">
+    <option value="">List of assigned Contacts</option>
+    {{#each members}}  
+    <option value="{{this.contactID}}">{{this.contactID}}&nbsp;:&nbsp;{{this.contactEmail}}&nbsp;({{this.contactName}})</option>
+    {{/each}}
+    </select>
+</div> 
+
+<div class="col-lg-2" style="margin-bottom:10px;display:flex;justify-content:right;">
+<button onclick="removeContact()" class="btn btn-danger form-large" style="border-radius: 5px; height:60px; width:100%;">Remove</button>
+</div>
+
+<div class="col-lg-2" style="margin-bottom:20px;">
+<button onclick="location.reload()" class="btn btn-default form-large" style="border-width:1px; border-color:grey;border-radius: 5px; height:60px; width:100%;">Reload Data</button>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+
+function assignContact(){
+	var groupID = document.getElementById("groupID").innerHTML.trim();
+	var contactID = document.getElementById("otherContactID").value.trim();
+	var emailToUse = document.getElementById("emailToUse").value.trim();
+	var contactEmailToAssign = document.getElementById(contactID+"_"+emailToUse).innerHTML.trim();
+	var contactsCSV = document.getElementById("csvAddContacts").value.trim();
+	if(otherContactID!="" && contactEmailToAssign!=""){
+	$.post('/assignContactToGroup',{groupID: groupID, contactID: contactID, email: contactEmailToAssign}, 
+			function(status, data){
+			if(data=="success"){
+				alert("Contact assigned successfully.");
+			}
+	}); 
+	if(contactsCSV!=""){
+		$.post("uploadContents?file="+CSVNameFile+"&table=group_members"+"&id="+groupID+","+contactID, function(data, status){
+			   if(status=="success"){
+				   alert("Contact assigned successfully from CSV.");
+			   }
+		});
+	}
+	}else{
+		alert('Please select an unassigned contact and the corresponsding exsiting email ID to be used.');
+	}
+}
+
+function removeContact(){
+	var contactID = document.getElementById("assignedContact").value.trim();
+	var groupID = document.getElementById("groupID").innerHTML.trim();
+	if(contactID!=""){
+	$.post('/removeContactFromGroup',{groupID: groupID, contactID: contactID}, function(status, data){
+		if(data=="success"){
+			alert("Contact deleted successfully.");
+		}
+	}); 
+    }else{
+    	alert("Please select an assigned contact to be remove, if listed.");
+    }
+}
+
+function insertAssociationTripleElem(id, element1, element2, element3, restAPIName, CSVName, db_table){
+	  
+	  var indx = 1;
+	  var first = document.getElementById(element1).value.trim();
+	  var second = document.getElementById(element2).value.trim();
+	  var third = document.getElementById(element3).value.trim();
+	  if(first!="" && second!="" && third!=""){
+		$.post(hostname+restAPIName,{id: id, element1: first, element2: second, element3: third}, 
+			   function(status){
+	      
+		}); 
+		
+ }
+	  
+	while(true){
+	   var index_1 = element1+indx;
+	   var index_2 = element2+indx;
+	   var index_3 = element3+indx;
+	   if(document.getElementById(index_1) != null){
+		   var attr1 = document.getElementById(index_1).value.trim();
+		   var attr2 = document.getElementById(index_2).value.trim();
+		   var attr3 = document.getElementById(index_3).value.trim();
+		   if(attr1!= "" && attr2!="" && attr3!=""){
+			$.post(hostname+restAPIName,{id: id, element1: attr1, element2: attr2, element3: attr3}, 
+				   function(status){
+		      
+		   });
+	   	} 
+		 indx++;
+	   } else {
+		   break;
+	   }
+ }
+
+	if(CSVName!=null && CSVName!=''){
+	var CSVNameFile = document.getElementById(CSVName).value.trim();
+	if(CSVNameFile!=""){
+		$.post(hostname+"uploadContents?file="+CSVNameFile+"&table="+db_table+"&id="+id, function(data, status){
+	   
+		});
+	}
+	}
+}
+
+</script>
+
+
+<div class="container">
+<div class="card" style="border-color:grey;border-width:1px;border-radius:5px;padding-bottom:20px;">
+<div class="card-body">
+<div class="row" style="display: fixed; justify-content: center;margin-top:15px;">
+
+<div class="col-md-7">
+ <h1 style="color:black">Try Cliosuite's Contacts Management</h1>
+</div>
+ 
+  <div class="col-md-3">
+ 
+  <button class="btn btn-dark btn-lg btn-block btn-huge" 
+      style="border-color:grey;width:100%; height:80px; border-width:1px;" onclick="window.open('/login', '_self');">
+  <font size="5px">LOGIN</font></button>
+  
+  </div>
+  
+  </div>
+  </div>
+  </div>
+    
+  </div>
+  <br/>
+  <br/>
+
+  <div id="features" class="container">	
+  	  
+
+  <div  style=";display: flex; justify-content: center;" class="row">
+
+  <div class="col">
+
+  <div style="justify-content: center;" class="row">
+  <button style="width:350px; border-color:grey; border-width:1px;  height:100px;   margin-bottom:10px;background-color:#4de3d3;" class="btn btn-info btn-lg btn-block btn-huge"> <font color="black" size="5">Business Focused</font></button>
+  </div>
+
+  </div>
+
+  <div class="col">
+
+  <div style="justify-content: center;" class="row">
+  <button style="width:350px; border-color:grey; border-width:1px;  height:100px; margin-bottom:10px;background-color:#4de3d3;" class="btn btn-info btn-lg btn-block btn-huge"> <font color="black" size="5">Collaborate or Notify</font></button>
+  </div>
+
+  </div>
+
+  <div class="col">
+
+  <div style="justify-content: center;" class="row">
+  <button style="width:350px; border-color:grey; border-width:1px;  height:100px;  margin-bottom:10px;background-color:#4de3d3;" class="btn btn-info btn-lg btn-block btn-huge"> <font color="black" size="5">External Email Integration</font></button>
+  </div>
+
+  </div>
+
+  </div>
+  </div>
+
+ 
