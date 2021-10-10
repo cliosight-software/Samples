@@ -1,7 +1,7 @@
-PROJECTS
+<b>PROJECTS</b>
 
 
-1. Enterprise web data and file management
+1. <b>Enterprise web data and file management</b>
 This is a web data & file management system. It will have the following sections:
 
 Updating Database Records
@@ -12,7 +12,7 @@ Assigning Files to entities
 Editing image, video, pdf and 3D files
 
 
-2. Online Collaboration and Support Service
+2. <b>Online Collaboration and Support Service</b>
 Our second project will demonstrate collaboration and support for enterprise applications. This will include parts for contacts management and customer support. Basically it will have the following modules:
 
 Video conferencing
@@ -21,7 +21,7 @@ Contacts management
 Support ticket management
 
 
-3. MicroCRM Builder
+3. <b>MicroCRM Builder</b>
 Our third project is a microcrm. This will have capabilities for creating web apps with:
 
 Database table creation interface
@@ -31,7 +31,7 @@ Complex query builder
 Report generation (graph and text)
 
 
-4. Product HTML Import for mobile apps
+4. <b>Product HTML Import for mobile apps</b>
 Our fourth project is a product html import SPA. This will have capabilities for extracting the relevant information about the product currently from the product detail page of an ecommerce website, which will later be replaced by API calls. Also the flexibility to choose between various templates will be provided to the online store builder. The functionalities include:
 
 HTML import
@@ -41,14 +41,14 @@ Payments setup
 Catalog creation with saved product HTML for dropshipping
 
 
-5. Online Marketing for Luxury Goods
+5. <b>Online Marketing for Luxury Goods</b>
 Our fifth project is a web application for integrated online marketing with automation. The types of marketing it will cover are:
 
 Influencer Marketing
 Email Marketing
 Social Media Marketing
 
-Technology stack used:
+<b>Technology stack used:</b>
 
 Node JS
 Express JS
