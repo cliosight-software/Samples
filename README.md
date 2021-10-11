@@ -18,7 +18,7 @@ Our second project is of a <b>web data & file management system</b>. It will hav
 
 
 <b>3. Online Collaboration and Support Service</b><br/>
-Our third project will demonstrate <b>collaboration and support</b> for enterprise applications. This will include parts for contacts management and customer support. Basically it will have the following modules:
+Our third project will demonstrate <b>collaboration and support</b> for enterprise applications. This will include parts for contacts management and customer support. It will have the following modules:
 1. Video conferencing
 2. Collaborative editing
 3. Contacts management 
@@ -26,7 +26,7 @@ Our third project will demonstrate <b>collaboration and support</b> for enterpri
 
 
 <b>4. MicroCRM Builder</b><br/>
-Our fourth project is a <b>microcrm</b>. This will have capabilities for creating web apps with:
+Our fourth project is a <b>microcrm builder</b>. This will have capabilities for creating web apps with:
 1. Database table creation interface
 2. Page builder
 3. Nested and hybrid form builders
@@ -35,7 +35,7 @@ Our fourth project is a <b>microcrm</b>. This will have capabilities for creatin
 
 
 <b>5. Product HTML Import for mobile apps</b><br/>
-Our fifth project is a <b>product html import SPA</b>. This will have capabilities for extracting the relevant information about the product currently from the product detail page of an ecommerce website, which will later be replaced by API calls. Also the flexibility to choose between various templates will be provided to the online store builder. The functionalities include:
+Our fifth project is a <b>product html import</b>. This will have capabilities for extracting the relevant information about the product currently from the product detail page of an ecommerce website, which will later be replaced by API calls. Also the flexibility to choose between various templates will be provided to the online store builder. The functionalities include:
 1. HTML import
 2. HTML editing and formatting 
 3. Product detail preview
