@@ -1,0 +1,321 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  height: auto;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 100px;
+}
+
+.Container {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.App,
+.Overlay,
+.Carousel {
+  min-height: 100%;
+}
+
+.Carousel-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.Carousel-image--football {
+  background-image: url("https://images.unsplash.com/photo-1450121982620-84a745035fa8?ixlib=rb-0.3.5&s=b2b7d02a223bb986b6449ff24a14ec97&auto=format&fit=crop&w=1436&q=80");
+}
+
+.Carousel-image--baseball {
+  background-image: url("https://images.unsplash.com/photo-1429407614269-4bfb6a2305ec?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=500097ee1cf6d978d35eeefa6ffb1e4a&auto=format&fit=crop&w=1308&q=80");
+}
+
+.Carousel-image--basketball {
+  background-image: url("https://images.unsplash.com/photo-1516684378628-240d2c5237f5?ixlib=rb-0.3.5&s=c4d58e767084d67f3383cbfd1b56f9fe&auto=format&fit=crop&w=1350&q=80");
+}
+
+.Carousel-image--soccer {
+  background-image: url("https://images.unsplash.com/photo-1518657205760-dafa7ef924de?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4f0e6b2fe20b6139b9f3455219562df8&auto=format&fit=crop&w=1350&q=80");
+}
+
+.Carousel-cell,
+.Carousel-image {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.Carousel {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.flickity-prev-next-button {
+  display: none;
+}
+
+.Overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+  opacity: 0.5;
+  z-index: 2;
+  opacity: 0.75;
+  
+  background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB, #000);
+	background-size: 400% 400%;
+  transition: background 500ms linear;
+}
+
+.Overlay.football {
+  background-position: 25% 0%;
+}
+
+.Overlay.baseball {
+  background-position: 60% 100%;
+}
+
+.Overlay.basketball {
+  background-position: 100% 100%;
+}
+
+.Overlay.soccer {
+  background-position: 50% 50%;
+}
+
+.Container {
+  position: relative;
+  z-index: 3;
+}
+
+.Title {
+  font-family: NHaasGroteskDSPro-75Bd, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 1.1;
+}
+
+.Subtitle {
+  font-family: NHaasGroteskTXPro-55Rg, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 1.4;
+}
+
+.Title,
+.Subtitle {
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.Subtitle {
+  opacity: 0.75;
+}
+
+.InputContainer {
+  position: relative;
+  padding: 0;
+  margin-top: 16px;
+  
+  overflow: visible;
+}
+
+.InputContainer,
+.InputContainer-contents {
+  position: relative;
+  z-index: 1;
+}
+
+.InputContainer-contents {
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0px 5px 32px rgba(0, 0, 0, 0.4);
+  border: 1px solid #cecece;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.InputContainer-contents.noborderbottom {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.InputContainer-contentSection.noflex {
+  flex: none;
+}
+
+.InputContainer-contentSection.flexauto {
+  flex: auto;
+}
+
+.InputContainer-results {
+  padding: 16px;
+  background-color: #fff;
+  position: relative;
+  top: 0px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  z-index: 2;
+  
+  border: 1px solid #cecece;
+  border-top: none;
+}
+
+.InputContainer-results.hidden {
+  display: none;
+}
+
+.Search,
+.SearchButton {
+  margin: 0;
+  padding: 0;
+  border: none;
+  padding: 16px;
+  font-size: 16px;
+  
+  display: block;
+  float: left;
+}
+
+.Search {
+  background: none;
+  border: none;
+  outline: none;
+  border-right: none;
+  padding-left: 0px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.Search {
+  width: 80%;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.SearchButton {
+  width: 20%;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  
+  border-left: 1px solid #cecece;
+  background-color: #fff;
+}
+
+.Search {
+  border-bottom-left-radius: 0px;
+}
+
+.SearchButton {
+  border-bottom-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.SportsIcons {
+  overflow: hidden;
+  height: 48px;
+  width: 48px;
+  padding: 0;
+}
+
+.SportsIcons-icon {
+  width: 50%;
+  height: 100%;
+  margin-left: 32px;
+  
+  opacity: 0;
+
+  transition: opacity 200ms linear;
+}
+
+.SportsIcons-icon.animate-in {
+  opacity: 1;
+  
+  transition: opacity 350ms cubic-bezier(0.755, 0.050, 0.855, 0.060); 
+}
+
+.SportsIcons-icon > svg {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.ResultsTitle {
+  font-family: 'Mukta Mahee', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  text-transform: uppercase;
+}
+
+.Tags {
+  margin-top: 10px;
+}
+
+.Tag {
+  
+  cursor: pointer;
+  
+  border-radius: 4px;
+  
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  
+  font-size: 12px;
+  
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  
+  display: inline-block;
+  
+  background-color: #e2e2e2;
+  border: 1px solid #c3c3c3;
+  
+}
+
+@media only screen and (max-width: 480px) {
+  
+  .Title {
+    font-size: 32px;
+    line-height: 1;
+  }
+  
+  .Subtitle {
+    margin-top: 5px;
+    font-size: 20px;
+  }
+  
+  .Search {
+    width: 70%;
+  }
+  
+  .SearchButton {
+    width: 30%;
+  }
+  
+}
