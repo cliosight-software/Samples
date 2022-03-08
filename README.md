@@ -55,19 +55,11 @@ Technology stack used:
 1. Node JS
 2. Express JS
 3. Handlebars
-4. Svelte JS
-5. Angular JS
-6. JQuery
-7. HTML5
-8. Bootstrap 4
-9. Python
-10. PHP 
-11. MySQL
+4. Angular JS
+5. JQuery
+6. HTML5/CSS3
+7. Bootstrap 
+8. Python
+9. MySQL
+10. MongoDB
 
-
-Indian Patrons, click the project logo below to donate:<br/>
-<a href="https://rzp.io/l/pnH5Xs3"><img src="https://isteam.wsimg.com/ip/2b686ac9-9aec-461e-830c-6306813e4be1/newlogo.jpg/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:600,h:300,cg:true" alt="cliosuite" style="float: left; margin-right: 10px;" /></a>
-
-
-<h3><b>International Patrons, please donate using the link below:</b></h3>
-https://ko-fi.com/jigishaaryya
