@@ -48,8 +48,6 @@ Our sixth project is a web application for integrated online marketing with <b>a
 2. Email Marketing
 3. Social Media Marketing
 
-Current screens of each is available in my <a href="https://www.behance.net/jigishaaryya">behance profile</a>.
-
 
 Technology stack used:
 1. Node JS
