@@ -2,8 +2,8 @@
 
 # cliosuite
 
-<b><u>PROJECTS</u></b><br/>
-Blog posts for a few of these sections is available on our website cliocrm.co.<br/>
+<b><u>PROJECTS</u></b><br/><br/>
+Blog posts for a few of these sections is available on our website cliocrm.co.<br/><br/>
 <b>1. User research</b>
 Our first project is to create a product intro, signup web app, and collect user data and other information from potential customers. 
 
