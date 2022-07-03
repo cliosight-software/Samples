@@ -1,0 +1,917 @@
+<!doctype html>
+<html style="width: 100%; height: 100%; overflow-x: hidden; " lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, height=device-height, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+      <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      
+
+</head>
+  <br/>
+
+	<style>
+	  .form-large{
+		    font-size: 25px;
+		}
+	
+		.form-large .control-label{
+		    padding-top: 20px;
+		    padding-bottom: 20px;
+		    line-height: normal;
+		}
+	
+		.form-large input, .form-large  button, .form-large select{
+		    font-size: 25px;
+		    padding: 15px;
+		    height: 65px;
+		    line-height: normal;
+		}
+		
+		.datalist, .select {
+			font-size: 25px;
+			height: auto;
+	    	line-height: normal;
+			background-color: white;
+		}
+		
+		
+</style>
+
+  <style>
+  
+  div, h2, h1,h3, h4, p, form{
+		font-family:optima;
+	}
+  
+  input {
+  	  font-size: 18px;
+  }
+	
+  .footer_clio {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    float: bottom;
+    text-align: center;
+  }
+
+  </style>
+<br/>
+
+  <body style="background-image: url('https://img1.wsimg.com/isteam/ip/2b686ac9-9aec-461e-830c-6306813e4be1/bg_light.jpg/:/rs=w:1250,cg:true,m');">
+ <main style="float: center;" class="bmd-layout-content" >
+ <div class="container">
+    <div class="row" style="margin:5px;">
+
+    <div class="col-lg-12" style="display: flex; justify-content: center; margin-left:0px;">
+    <p style="font-family: optima; font-size:50px;font-weight:italic;">Cliosuite: One-Stop Solution for MSMEs</p>
+    </div>
+    
+    </div>
+    </div>
+
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
+
+<script>
+
+function uploadToTable(){
+	
+	var uploaded_csv = document.getElementById("uploaded_csv").value.trim();
+	var doc_table_tag = document.getElementById("table_tag").value.trim();
+	if(uploaded_csv!="none"){
+	if (doc_table_tag=="none"){
+		alert("Please choose a database table to populate!");
+	} else {
+			$.post("/uploadContents?file="+uploaded_csv+"&table="+doc_table_tag+"&id="+"", function(data, status){
+			
+		});	
+	}
+	} else {
+		alert("Please select a CSV filename");
+	}
+ }	
+
+function uploadToTableFromTextarea(textAreaName){
+	
+	var csv_data = encodeURIComponent(document.getElementById(textAreaName).value);
+	var doc_table_tag = document.getElementById("table_tag").value.trim();
+	if(csv_data!=""){
+		if (doc_table_tag == "none"){
+			alert("Please choose a database table to populate!");
+		} else {
+			if(doc_table_tag != "none" && csv_data.trim()!="")
+				//****** To Do: check if the data in the files represent existing entities before entering the records.
+				$.post("/uploadTextCSV?data="+csv_data+"&table="+doc_table_tag, function(data, status){
+					if(status!="200"){
+						alert("There was an error. Please check your data.");
+					}
+					else{
+						alert("Data inserted successfully.");
+					}
+			});	
+		}
+		} else {
+			alert("Please enter CSV data. Refer to Documentation for format.");
+		}
+}
+
+function deleteFile(){
+	
+}
+
+</script> 
+
+
+    <div class="container"> 
+    
+    <div class="card card-body" style="width:100%; border-color:black; border-radius:10px;background-color:white" >
+    <div class="row">
+    <div class="col" style="margin-bottom:10px;display: flex; justify-content: center;">
+    <h1 style="font-size:35px;color:darkcyan;font-weight:italic;">File & Data Management</h1>
+    </div>
+   </div>
+   </div>
+   <br/>
+   
+   <div class="card" style="width:100%; border-color:black; border-radius:10px;background-color:Azure" >
+   <div class="card-body">
+   <h2 id="managedb" style="border-width:1px;border-color:black;display: flex;justify-content: center;color:black;  margin-top:20px;margin-bottom:30px;">Edit Database Records</h2>
+   {{#if errMsg}}
+   <div class="row form-large" style="margin-left:0px; margin-bottom:10px;">
+   <h2>{{errMsg}}</h2>
+   </div>
+   {{/if}}
+   <form action="/getRecords" enctype="multipart/form-data" method="GET"> 
+   <div class="row form-large " style="margin-bottom:20px;">
+   <div class="col-lg-8" style="margin-bottom:10px;">
+       <select id="table_mdb" style="height:65px;color:black;width:100%;" class="form-large form-control" name="table_mdb">
+       	  <option value="none">Choose database table</option>
+       	  <option value="filenames">filenames</option>
+       	  <option value="filedata">filedata</option>
+       	  <option value="image_filenames">image_filenames</option>
+       	  <option value="video_filenames">video_filenames</option>
+       	  <option value="i3D_filenames">i3D_filenames</option>
+       	  <option value="media_entity">media_entity</option>
+       	  <option value="contacts">contacts</option>
+       	  <option value="groups">groups</option>
+       	  <option value="group_members">group_members</option>
+       	  <option value="manual_order">manual_order</option>
+       	  <option value="purchase_order">purchase_order</option>
+       	  <option value="transfer_order">transfer_order</option>
+       	  <option value="store">store</option>
+       	  <option value="store_personnel_list">store_personnel_list</option>
+       	  <option value="store_images_list">store_images_list</option>
+       	  <option value="store_products_list">store_products_list</option>
+       	  <option value="store_services_list">store_services_list</option>
+       	  <option value="store_fc_list">store_fc_list</option>
+       	  <option value="store_delivery_services_list">store_delivery_services_list</option>
+       	  <option value="fc">fc</option>
+       	  <option value="fc_personnel_list">fc_personnel_list</option>
+       	  <option value="fc_products_list">fc_products_list</option>
+       	  <option value="fc_services_list">fc_services_list</option>
+       	  <option value="fc_delivery_services_list">fc_delivery_services_list</option>
+       	  <option value="personnel">personnel</option>
+       	  <option value="personnel_services_list">personnel_services_list</option>
+       	  <option value="personnel_stores_list">personnel_stores_list</option>
+       	  <option value="personnel_fc_list">personnel_fc_list</option>
+       	  <option value="personnel_delivery_services_list">personnel_delivery_services_list</option>
+       	  <option value="product">product</option>
+       	  <option value="product_services_list">product_services_list</option>
+       	  <option value="product_cross_sell_list">product_cross_sell_list</option>
+       	  <option value="product_upsell_list">product_upsell_list</option>
+       	  <option value="product_stores_list">product_stores_list</option>
+       	  <option value="product_fcs_list">product_fcs_list</option>
+       	  <option value="product_delivery_services_list">product_delivery_services_list</option>
+       	  <option value="product_images_list">product_images_list</option>
+       	  <option value="product_highlights_list">product_highlights_list</option>
+       	  <option value="product_variety_list">product_variety_list</option>
+       	  <option value="product_variety_type_list">product_variety_type_list</option>
+       	  <option value="service">service</option>
+       	  <option value="service_images_list">service_images_list</option>
+       	  <option value="service_highlights_list">service_highlights_list</option>
+       	  <option value="service_products_list">service_products_list</option>
+       	  <option value="service_related_services_list">service_related_services_list</option>
+       	  <option value="service_stores_list">service_stores_list</option>
+       	  <option value="service_fcs_list">service_fcs_list</option>
+       	  <option value="delivery_service">delivery_service</option>
+       	  <option value="delivery_service_stores_list">delivery_service_stores_list</option>
+       	  <option value="delivery_service_fcs_list">delivery_service_fcs_list</option>
+       	  <option value="pricing_rule">pricing_rule</option>
+       	  <option value="pricing_rule_products_list">pricing_rule_products_list</option>
+       	  <option value="pricing_rule_services_list">pricing_rule_services_list</option>
+       	  <option value="pricing_rule_customer_locations_list">pricing_rule_customer_locations_list</option>
+       	  <option value="pricing_rule_hotspots_list">pricing_rule_hotspots_list</option>
+       	  <option value="pricing_rule_stores_list">pricing_rule_stores_list</option>
+       	  <option value="pricing_rule_fcs_list">pricing_rule_fcs_list</option>
+       	  <option value="coupon">coupon</option>
+       	  <option value="coupon_products_list">coupon_products_list</option>
+       	  <option value="coupon_services_list">coupon_services_list</option>
+       	  <option value="coupon_delivery_services_list">coupon_delivery_services_list</option>
+       	  <option value="coupon_customer_email_list">coupon_customer_email_list</option>
+       	  <option value="voucher">voucher</option>
+       	  <option value="voucher_customers_list">voucher_customers_list</option>
+       	  <option value="voucher_category_list">voucher_category_list</option>
+       	  <option value="voucher_products_list">voucher_products_list</option>
+       	  <option value="voucher_services_list">voucher_services_list</option>
+       	  <option value="gift_card">gift_card</option>
+       	  <option value="gift_card_category_list">gift_card_category_list</option>
+       	  </select>
+   </div>
+   <div class="col-lg-4">
+   <input type="submit" role="button" onclick="clearTextarea()" id="loadfiltereddata" class="btn btn-default form-large" style="border-width:1px;border-color:black;border-radius: 5px; height:65px;color:black;color:black; width:100%;" value="Load Records" />
+   </div>
+   </div>
+   <div class="row form-large " style="margin-bottom:20px;">
+   <div class="col-lg-12" style="margin-bottom:0px;">
+   <select id="table_key" style="height:65px;color:black;width:100%;" class="form-large form-control" name="table_key">
+   	  <option value="none">Choose unique key</option>
+   	  {{#each table_keys}}  
+         <option value="{{this.key}}">{{this.key}}</option>
+         {{/each}}
+   	  </select>
+   </div>
+   </div>
+   
+   {{#if table_name}}
+   <div class="row">
+   <div class="col-lg-2">
+   <h3>DB Table:</h3>
+   </div>
+   <div class="col-lg-10">
+   <h3 id="chosen_table">{{table_name}}</h3>
+   </div>
+   </div>
+   {{/if}}
+   <div class="row">
+   {{#if table_key_value}}
+   <div class="col-lg-2">
+   <h3> Key: </h3>
+   </div>
+   <div class="col-lg-10">
+   <h3>{{table_key_value}}</h3>
+   </div>
+   {{/if}}
+   </div>
+   
+   <br/>
+   
+   <div class="row">
+   <div class="col-lg-12">
+   <textarea class="form-large form-control" id="db_data" rows="4">
+   {{#each table_rows}}
+   {{this.db_row}}
+   {{/each}}
+   </textarea> 
+   </div>
+   </div>
+   </form>
+   <br/>
+   
+   <div class="row form-large">
+   <div class="col-lg-8" style="margin-bottom:10px;">
+   <button onclick="saveDBChanges()" id="save_db_changes" type="submit" class="btn btn-default" style="border-radius: 5px; height:65px;color:black; width:100%;border-width:1px;border-color:black;color:black">Save Changes to DB Table</button>
+   </div>
+   <div class="col-lg-4" style="margin-bottom:0px;">
+   <button id="clear_db_textarea" type="button" style="border-radius: 5px; height:65px;color:black; width:100%;background-color:white;border-width:1px; border-color:black;color:black;">Clear Entries</input>
+   </div>
+   </div>
+   
+   </div>
+   </div>
+   
+   <br/>
+   <script>
+   var input = document.querySelector('#clear_db_textarea');
+   var textarea = document.querySelector('#db_data');
+
+   input.addEventListener('click', function () {
+       textarea.value = '';
+   }, false);
+   
+   </script>
+   
+  
+    <div id="uploadFiles" class="card card-body" style="width:100%; border-color:black; border-radius:10px;background-color:Azure" >
+    <h2 style="display: flex;justify-content: center;color:black;  margin-top:10px;margin-bottom:10px;padding:10px;">Upload CSV or PDF File</h2>
+    <form action="/uploadfile" enctype="multipart/form-data" method="POST"> 
+    <div class="row">
+    	<div class="col-lg-9">
+    		<input type="file" name="file" class="form-large btn btn-default" style="width:100%; height:65px;color:black;  color:black; background-color:white; margin-bottom:20px;padding:10px;" />
+        </div>
+        <div class="col-lg-3" style="margin-bottom:20px;">
+    		<input type="submit" value="Upload File" class="form-large btn btn-light"  role="button" style="width:100%; height:65px;color:black;border-radius: 5px;border-width:1px;border-color:black;" />
+        </div>
+    </div>			
+    </form>
+    
+    <h2 style="display: flex;justify-content: center;color:black; margin-top:0px;margin-bottom:20px;padding:10px;">Upload Multimedia Files</h2>
+    
+    <form action="/upload-multiple-images" enctype="multipart/form-data" method="POST">
+    
+     <div class="row">
+     <div class="col-lg-9">
+        <input class="form-large btn btn-default" style="width:100%; height:65px;color:black;  color:black; background-color:white; margin-bottom:20px;padding:10px;" type="file" name="multiple_images" multiple></input>
+    </div>
+
+    <div class="col-lg-3" style="margin-bottom:20px;">
+        <input class="form-large btn btn-light"  value="Upload Images" role="button" style="width:100%; height:65px;color:black;border-radius: 5px;border-width:1px;border-color:black;" type="submit" name="btn_upload_multiple_images"/>
+    </div>
+    </div>
+    </form>
+    <form action="/upload-multiple-videos" enctype="multipart/form-data" method="POST">
+    
+    <div class="row">
+    <div class="col-lg-9">
+       <input class="form-large btn btn-default" style="width:100%; height:65px;color:black;  color:black; background-color:white; margin-bottom:20px;padding:10px;" type="file" name="multiple_videos" multiple></input>
+   </div>
+
+   <div class="col-lg-3" style="margin-bottom:20px;">
+       <input class="form-large btn btn-light"  value="Upload Videos" role="button" style="width:100%; height:65px;color:black;border-radius: 5px;border-width:1px;border-color:black;" type="submit" name="btn_upload_multiple_videos"/>
+   </div>
+   </div>
+   </form>
+   <form action="/upload-multiple-3D" enctype="multipart/form-data" method="POST">
+   
+   <div class="row">
+   <div class="col-lg-9">
+      <input class="form-large btn btn-default" style="width:100%; height:65px;color:black;  color:black; background-color:white; margin-bottom:20px;padding:10px;" type="file" name="multiple_3D" multiple></input>
+  </div>
+
+  <div class="col-lg-3" style="margin-bottom:20px;">
+      <input class="form-large btn btn-light"  value="Upload 3D File" role="button" style="width:100%; height:65px;color:black;border-radius: 5px;border-width:1px;border-color:black;" type="submit" name="btn_upload_multiple_3D"/>
+  </div>
+  </div>
+  </form>
+</div>
+    <br/>
+
+
+    <div class="card" style="width:100%; border-color:black; border-radius:10px;background-color:Azure" >
+    <div class="card-body">
+    
+    <h2 style="display: flex;justify-content: center;color:black;  margin-top:0px;margin-bottom:10px;padding:10px;">Import CSV Data</h2>
+     <div class="row form-large " style="margin-bottom:10px;">
+     <div class="col-lg-8" style="margin-bottom:10px;">
+         <select id="table_tag" style="height:65px;color:black;width:100%;" class="form-large form-control" name="tables">
+         	  <option value="none">Table for data import sections below</option>
+         	  <option value="filenames">filenames</option>
+         	  <option value="image_filenames">image_filenames</option>
+         	  <option value="video_filenames">video_filenames</option>
+         	  <option value="i3D_filenames">i3D_filenames</option>
+         	  <option value="groups">groups</option>
+         	  <option value="contacts">contacts</option>
+         	  <option value="group_members">group_members</option>
+         	  <option value="store">store</option>
+         	  <option value="store_personnel_list">store_personnel_list</option>
+         	  <option value="store_images_list">store_images_list</option>
+         	  <option value="store_products_list">store_products_list</option>
+         	  <option value="store_services_list">store_services_list</option>
+         	  <option value="store_fc_list">store_fc_list</option>
+         	  <option value="store_delivery_services_list">store_delivery_services_list</option>
+         	  <option value="fc">fc</option>
+         	  <option value="fc_personnel_list">fc_personnel_list</option>
+         	  <option value="fc_products_list">fc_products_list</option>
+         	  <option value="fc_services_list">fc_services_list</option>
+         	  <option value="fc_delivery_services_list">fc_delivery_services_list</option>
+         	  <option value="personnel">personnel</option>
+         	  <option value="personnel_services_list">personnel_services_list</option>
+         	  <option value="personnel_stores_list">personnel_stores_list</option>
+         	  <option value="personnel_fc_list">personnel_fc_list</option>
+         	  <option value="personnel_delivery_services_list">personnel_delivery_services_list</option>
+         	  <option value="product">product</option>
+         	  <option value="product_services_list">product_services_list</option>
+         	  <option value="product_cross_sell_list">product_cross_sell_list</option>
+         	  <option value="product_upsell_list">product_upsell_list</option>
+         	  <option value="product_stores_list">product_stores_list</option>
+         	  <option value="product_fcs_list">product_fcs_list</option>
+         	  <option value="product_delivery_services_list">product_delivery_services_list</option>
+         	  <option value="product_images_list">product_images_list</option>
+         	  <option value="product_highlights_list">product_highlights_list</option>
+         	  <option value="product_variety_list">product_variety_list</option>
+         	  <option value="product_variety_type_list">product_variety_type_list</option>
+         	  <option value="service">service</option>
+         	  <option value="service_images_list">service_images_list</option>
+         	  <option value="service_highlights_list">service_highlights_list</option>
+         	  <option value="service_products_list">service_products_list</option>
+         	  <option value="service_related_services_list">service_related_services_list</option>
+         	  <option value="service_stores_list">service_stores_list</option>
+         	  <option value="service_fcs_list">service_fcs_list</option>
+         	  <option value="delivery_service">delivery_service</option>
+         	  <option value="delivery_service_stores_list">delivery_service_stores_list</option>
+         	  <option value="delivery_service_fcs_list">delivery_service_fcs_list</option>
+         	  <option value="pricing_rule">pricing_rule</option>
+         	  <option value="pricing_rule_products_list">pricing_rule_products_list</option>
+         	  <option value="pricing_rule_services_list">pricing_rule_services_list</option>
+         	  <option value="pricing_rule_customer_locations_list">pricing_rule_customer_locations_list</option>
+         	  <option value="pricing_rule_hotspots_list">pricing_rule_hotspots_list</option>
+         	  <option value="pricing_rule_stores_list">pricing_rule_stores_list</option>
+         	  <option value="pricing_rule_fcs_list">pricing_rule_fcs_list</option>
+         	  <option value="coupon">coupon</option>
+         	  <option value="coupon_products_list">coupon_products_list</option>
+         	  <option value="coupon_services_list">coupon_services_list</option>
+         	  <option value="coupon_delivery_services_list">coupon_delivery_services_list</option>
+         	  <option value="coupon_customer_email_list">coupon_customer_email_list</option>
+         	  <option value="voucher">voucher</option>
+         	  <option value="voucher_customers_list">voucher_customers_list</option>
+         	  <option value="voucher_category_list">voucher_category_list</option>
+         	  <option value="voucher_products_list">voucher_products_list</option>
+         	  <option value="voucher_services_list">voucher_services_list</option>
+         	  <option value="gift_card">gift_card</option>
+         	  <option value="gift_card_category_list">gift_card_category_list</option>
+         	  </select>
+     </div> 
+    
+     <div class="col">
+     <button onclick="window.open('/documentation')" id="docu" class="btn btn-default form-large" style="border-radius: 5px; height:65px;color:black; width:100%;border-color: black; border-width:1px; color:black;background-color:white">Database Table Docs</button>
+     </div>
+     </div>
+     
+     </div>
+     </div>
+     <br/>
+     
+    <div id="manageCSV" class="card" style="width:100%; border-color:black; border-radius:10px;background-color:Azure" >
+    <div class="card-body">
+    <br/>
+   <form action="/listFileNamesCSV" enctype="multipart/form-data" method="GET">
+   <div class="row" style="margin-bottom:10px;">
+   <div class="col-lg-9" style="margin-bottom:10px;">
+       <select id="uploaded_csv" style="height:65px;color:black;margin-bottom:10px;width:100%" class=" form-large form-control" name="db_tables">
+       <option value="none">Choose CSV File</option>
+       {{#each files}}  
+       <option value="{{this.name}}">{{this.name}}</option>
+       {{/each}}
+       </select>
+   </div> 
+   </form>
+   <div class="col-lg-3" style="margin-bottom:10px;display:flex;justify-content:right;">
+   <input onclick="location.reload()" type="submit" value="Refresh Data" class="form-large btn btn-default"  role="button" style="width:100%; height:65px;color:black;border-radius: 5px; border-width:1px;border-color:black;" />
+   </div>
+   </div>
+   
+   <div class="row" style="margin-bottom:10px;">
+   <div class="col-lg-3" style="margin-bottom:10px;">
+   <button onclick="uploadToTable()" id="submit_file" type="submit" class="btn btn-default form-large" style="border-radius: 5px; height:65px;color:black; width:100%;border-width:1px;border-color:black;">Import Data to Table</button>
+   </div>
+   
+   <div class="col-lg-3" style="margin-bottom:10px;display:flex;justify-content:right;">
+   <button id="loadFileContents" onclick="window.location='#managedb'" class="btn btn-default form-large" style="border-radius: 5px; height:65px;color:black; width:100%;border-width:1px;border-color:black;">Edit CSV File</button>
+   </div>
+   
+   <div class="col-lg-3" style="margin-bottom:20px;display:flex;justify-content:right;">
+   <button id="delete" onclick="deleteCSV()" class="btn btn-default form-large" style="border-radius: 5px;border-color:darkred;background-color:white; height:65px;width:100%;border-width:1px;color:darkred;">Delete CSV File</button>
+   </div>
+   
+   <div class="col-lg-3" style="margin-bottom:10px;">
+   <button onclick="uploadToTable()" class="btn btn-default form-large" style="border-radius: 5px; height:65px;color:black; width:100%;border-width:1px;border-color:black;color:black; background-color:white;">List All CSV Files</button>
+   </div>
+   
+   </div>
+   
+   </div>
+   </div>
+   <br/>
+   
+    <div class="card" style="width:100%; border-color:black; border-radius:10px;background-color:Azure" >
+    <div class="card-body">
+    <div class="row">
+    <div class="col-lg-12" style="margin-bottom:10px;">
+    <h2 style="display: flex;justify-content: center;color:color; margin-top:20px;margin-bottom:20px;padding:0px;">Stored & Manual Entry</h2>
+    </div> 	
+    </div>
+    
+    <div class="row">
+    <div class="col-lg-9">
+     		<input type="file" name="docpicker" class="form-large btn btn-default" style="width:100%; height:65px;color:black; background-color:white; margin-bottom:20px; padding:10px;" id="docpicker" accept=".csv,application/vnd.ms-excel,.xlt,application/vnd.ms-excel,.xla,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xltx,application/vnd.openxmlformats-officedocument.spreadsheetml.template,.xlsm,application/vnd.ms-excel.sheet.macroEnabled.12,.xltm,application/vnd.ms-excel.template.macroEnabled.12,.xlam,application/vnd.ms-excel.addin.macroEnabled.12,.xlsb,application/vnd.ms-excel.sheet.binary.macroEnabled.12" />
+         </div>
+         <div class="col-lg-3" style="margin-bottom:20px;">
+         	<button onclick="uploadToTableFromTextarea('dataviewer')"  id="submit_excelfile_text" type="submit" class="btn btn-default btn-huge form-large" style="margin-bottom:10px; height:65px;color:black; width:100%;border-width:1px;border-color:black;">Import CSV to DB</button>
+         </div>
+     </div>			
+    
+     <div class="row"  style="margin-bottom:20px;margin-left:0px; margin-right:0px;">
+     <textarea placeholder="Enter or Edit Single Excel Sheet or CSV File data here." class="form-large form-control" id="dataviewer" rows="6"></textarea> 
+     </div>
+     
+     </div>
+     </div>
+     <br/>
+
+     
+  <div class="card" style="width:100%; border-color:black; border-radius:10px;background-color:Azure" >
+  <div class="card-body">
+   <h2 style="display: flex;justify-content: center;color:black; margin-top:20px;margin-bottom:30px; ">Assign Files to Entities</h2>
+    <form id="associations" action="/listFileNames" enctype="multipart/form-data" method="GET"> 
+    <div class="row form-large" style="margin-bottom:0px;">
+    <div id="choosefiles" class="col-lg-9" style="margin-bottom:10px;">
+        <select id="media_file" style="height:65px;color:black;margin-bottom:10px;width:100%" class=" form-large form-control" name="media_file">
+        <option value="none">Choose Filename</option>
+        {{#each media_files}}  
+        <option value="{{this.name}}">{{this.name}}</option>
+        {{/each}}
+        </select>
+    </div> 
+
+    <div class="col-lg-3" style="margin-bottom:10px;display:flex;justify-content:right;">
+    <input type="submit" value="Refresh Data" class="form-large btn btn-default"  role="button" style="width:100%; height:65px;color:black;border-radius: 5px; border-width:1px;border-color:black;" />
+    </div>
+    </div>
+    </form>
+    
+    <br/>
+    
+    <div class="row form-large" style="margin-bottom:10px;">
+    <div class="col-lg-4" style="margin-bottom:20px;">
+        <select id="media_tag" style="height:65px;color:black;width:100%" class="form-large form-control" name="image_tag">
+        	  <option value="ID_verification" selected>Identity Verification</option>
+        	  <option value="store_data">Store</option>
+        	  <option value="fc_data">FC</option>
+        	  <option value="product">Product</option>
+        	  <option value="service">Service</option>
+        	  <option value="promo">Promotional</option>
+        	  <option value="supplier_related">Supplier Related</option>
+        	  <option value="partner_related">3rd Party Disputes</option>
+        	  <option value="customer_support">Customer Support</option>
+        	  <option value="technical">Technical Query</option>
+        	  <option value="consultation">Consultation</option>
+        	  <option value="training">Training</option>
+        	  <option value="interview">Interview</option>
+        	  </select>
+    </div>
+    
+    <div class="col-lg-5" style="margin-bottom:20px;">
+    <input type="text" class="form-control" id="custom_tag" placeholder="Custom Tag">
+    </div>
+    <div class="col-lg-3">
+	<input class="form-large btn btn-default"  value="Update Tag" role="button" style="width:100%; height:65px;color:black;border-radius: 5px;border-width:1px;border-color:black;" type="submit" onclick="updateMediaTag()" name="btn_update_media_tag"/>
+	</div>
+    </div>
+
+    {{#if file_id}}
+    <h3>Showing results for file with ID : <font color="grey">{{file_id}}</font></h3>
+    {{/if}}
+    <div class="row form-large" style="margin-bottom:0px;">
+    <div class="col-lg-4" style="margin-bottom:0px;">
+        <select id="all_entities_list" style="height:65px;color:black;margin-bottom:20px;width:100%" class=" form-large form-control" name="all_entities_list">
+        {{#each all_entities}}  
+        <option value="{{this.name}}">{{this.name}}</option>
+        {{/each}}
+        </select>
+    </div> 
+
+    <div class="col-lg-2" style="margin-bottom:10px;display:flex;justify-content:right;">
+    <button id="assign" onclick="assignMedia()" class="btn btn-default form-large" style="border-width:1px;border-color:black;border-radius: 5px; height:65px;color:black; width:100%;">Associate</button>
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom:0px;">
+        <select id="assigned_list" style="height:65px;color:black;margin-bottom:20px;width:100%" class=" form-large form-control" name="assigned_list">
+        {{#each assigned_entities}}  
+        <option value="{{this.name}}">{{this.name}}</option>
+        {{/each}}
+        </select>
+    </div> 
+    
+    <div class="col-lg-2" style="margin-bottom:10px;display:flex;justify-content:right;">
+    <button onclick="dissociateMedia()" id="assign" class="btn btn-default form-large" style="border-radius: 5px; border-color:black;height:65px;color:black; width:100%;">Dissociate</button>
+    </div>
+    </div>
+    <br/>
+    <div class="row form-large">
+
+    <div class="col-lg-3" style="margin-bottom:10px;">
+    <button onclick="window.open('/managefiles#pdf')" id="list_pdf_file" class="btn btn-dark" style="border-radius: 5px; height:65px;color:white; width:100%;">Edit PDF Files</button>
+    </div>
+    
+    <div class="col-lg-3" style="margin-bottom:10px;">
+    <button onclick="window.open('/managefiles#imgFiles')" id="list_image_file" type="submit" class="btn btn-dark" style="border-radius: 5px; height:65px;color:white; width:100%;">Edit Images</button>
+    </div>
+
+    <div class="col-lg-3" style="margin-bottom:10px;">
+    <button onclick="window.open('/managefiles#videoFiles')" id="list_video_file" type="submit" class="btn btn-dark" style="border-radius: 5px; height:65px;color:white; width:100%;">Edit Videos</button>
+    </div>
+    
+    <div class="col-lg-3" style="margin-bottom:10px;">
+    <button onclick="window.open('/managefiles#gltf')" id="list_3D_file" type="submit" class="btn btn-dark" style="border-radius: 5px; height:65px;color:white; width:100%;">Edit 3D Files</button>
+    </div>
+    </div>
+    
+    </div>
+    </div>
+    </div>
+    
+    <script>
+    
+    function saveDBChanges(){
+    	var table_name = document.getElementById("table_mdb").value.trim();
+    	var table_key = document.getElementById("table_key").value.trim();
+    	var db_row_data = document.getElementById("db_data").value.trim().replace(/ /g,"").replace('}(.*?){','}{');
+    	
+    	if(db_row_data!="" && table_name!="none"){ 
+    		$.post("/deleteRecords?table_name="+table_name+"&table_key="+table_key, function(data, status){
+    			if(status.trim()=="success"){
+    				alert("Records deleted successfully.");
+
+    	    		$.post("/saveJsonToDB?table_name="+table_name+"&table_data="+db_row_data+"&table_key="+table_key, function(data, status){
+    	    			if(status.trim()=="success"){
+    	    				alert("Records inserted successfully.");
+    	    			}else{
+    	    				alert("There was some error proccessing your DB operation");
+    	    			}
+    				});
+    	    		
+    			}else{
+    				alert("There was some error proccessing your DB operation");
+    			}
+    		});
+    		
+    	}else if(db_row_data=="" && table_name!="none"){ //delete all records or one record filtered via UI
+    		$.post("/deleteRecords?table_name="+table_name+"&table_key="+table_key, function(data, status){
+    			if(status.trim()=="success"){
+    				alert("Records deleted successfully.");
+    			}else{
+    				alert("There was some error proccessing your DB operation");
+    			}
+    		});
+    	}
+    	else {
+    		alert("Please choose the database table and modify records as per the expected schema and format.")
+    	}
+    	
+    }
+    
+    function clearTextarea(){
+    	document.getElementById("db_data").innerHTML = "";
+    	var table_mdb = document.getElementById("table_mdb").value;
+    	var table_key = document.getElementById("table_key").value;
+    	if(document.getElementById("table_mdb").value == "none"){
+    		alert("Please choose a table name");
+    	} else {
+    		if(table_mdb=="groups"){
+    			$.get('/getRecords?table_mdb=`'+table_mdb+"`&table_key="+table_key , function(data, status){
+    			
+    		}} else{
+    	
+    		$.get('/getRecords?table_mdb='+table_mdb+"&table_key="+table_key , function(data, status){
+    			
+    		});	}
+    	}
+    }
+    
+    function clearTextarea2(){
+    	document.getElementById("db_data").innerHTML = "";
+    }
+
+    var file = document.getElementById('docpicker')
+    var viewer = document.getElementById('dataviewer')
+    file.addEventListener('change', importFile);
+
+    function importFile(evt) {
+      var f = evt.target.files[0];
+
+      if (f) {
+        var r = new FileReader();
+        r.onload = e => {
+          var contents = processExcel(e.target.result);
+          console.log(ConvertToCSV(contents));
+          document.getElementById('dataviewer').value = ConvertToCSV(contents);
+          
+        }
+        r.readAsBinaryString(f);
+      } else {
+        console.log("Failed to load file");
+      }
+    }
+
+    function processExcel(data) {
+      var workbook = XLSX.read(data, {
+        type: 'binary'
+      });
+
+      var firstSheet = workbook.SheetNames[0];
+      var data = to_json(workbook);
+      return data
+    };
+
+    function to_json(workbook) {
+      var result = {};
+      workbook.SheetNames.forEach(function(sheetName) {
+        var roa = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {
+          header: 1
+        });
+        if (roa.length) result[sheetName] = roa;
+      });
+      return JSON.stringify(result);
+      
+    };
+
+    
+    // JSON to CSV Converter
+    function ConvertToCSV(jsonStr) {
+    	var regex = /\{\"(.*?)\":/;
+        var sheetName = regex.exec(jsonStr);
+        var str = jsonStr.replace(sheetName[0],"").replace(/\[\[/g,"").replace(/\]\]/g,"").replace(/"/g,"").replace(/\}/g,"").replace(/\],\[/g,"\n");
+        return str;
+    }
+
+    
+    function updateMediaTag(){
+    	
+    	var media_tag = document.getElementById('media_tag').value.trim();
+    	var custom_media_tag = document.getElementById('custom_tag').value.trim();
+    	if(custom_media_tag.replace(/ /g,"")!=""){
+    		media_tag = custom_media_tag;
+    	}
+    	var media_file = document.getElementById('media_file').value.trim();
+    	var table_name = "image_filenames";
+    	
+    	if(media_file.substr(0,15)=="multiple_videos"){
+    		table_name = "video_filenames";
+    	} else if(media_file.substr(0,16)=="multiple_3Dimage"){
+    		table_name = "i3D_filenames";
+    	}else{
+    		table_name = "filenames";
+    	}
+    	if(media_file!="none") {
+    	$.post("/updateMediaTag?media_tag="+media_tag+"&media_file="+media_file+"&table_name="+table_name, function(data, status){
+			
+		});	
+    	
+    	}else{
+    		alert("Please choose a file and entity name.");
+    	}
+    }
+    
+    function assignMedia(){
+    	var media_file = document.getElementById('media_file').value.trim();
+    	var entity_id = document.getElementById('all_entities_list').value.trim();
+    	if(media_file!="none"){
+    	$.post("/assignMedia?media_file="+media_file+"&entity_id="+entity_id, function(data, status){
+			
+		});	
+    	
+    	}else{
+    		alert("Please choose a file");
+    	}
+    	
+    }
+    
+    function dissociateMedia(){
+    	var media_file = document.getElementById('media_file').value.trim();
+    	var entity_id = document.getElementById('assigned_list').value.trim();
+    	
+    	if(media_file!="none" && entity_id!=""){
+    	$.post("/dissociateMedia?media_file="+media_file+"&entity_id="+entity_id, function(data, status){
+			
+		});	
+    	
+      }else{
+       if(media_file=="none")
+  		alert("Please choose a file");
+       else 
+    	   alert("No entities assigned to dissociate");
+  	}
+    	
+    }
+    
+    </script>
+<br/>
+<br/>
+
+<div class="container">
+<div class="card" style="width:100%;border-color:black; border-width:1px;border-radius:10px; padding-bottom:20px;" >
+<div class="card-body">
+<div class="row" style="justify-content:center;display:flex; margin-top:15px;">
+
+<div class="col-lg-7" style="justify-content:center;display: flex;">
+ <h1 style="color:black">Try Cliosuite's File & Data Management</h1>
+</div>
+ 
+  <div class="col-lg-3">
+ 
+  <button class="btn btn-dark btn-lg btn-block btn-huge" 
+      style="border-color: black;width:100%; height:80px; border-width:1px;" onclick="window.open('/login', '_self');">
+  <font size="5px" color="white">LOGIN</font></button>
+  
+  </div>
+  
+  </div>
+  </div>
+  </div>
+  </div>
+ 	    
+  <br/>	
+  <br/>
+  <div id="features" class="container">
+
+  <div  style=";display: flex; justify-content: center;" class="row">
+
+  <div class="col-lg-6">
+
+  <div style="justify-content: center;" class="row">
+  <button style="width:95%; height:100px; border-color: black; border-width:1px; margin-bottom:10px;background-color:#4ddae3;" class="btn btn-default btn-lg btn-block btn-huge"> <font color="black" size="5">Simplified Database Access</font></button>
+  </div>
+
+  </div>
+
+  <div class="col-lg-6">
+
+  <div style="justify-content: center;" class="row">
+  <button style="width:95%; height:100px; border-color: black;  border-width:1px; margin-bottom:10px;background-color:#4de3d3;" class="btn btn-default btn-lg btn-block btn-huge"> <font color="black" size="5">Quick Upload & Data Update</font></button>
+  </div>
+
+  </div><br/>
+  
+  <div class="col-lg-6">
+
+  <div style="justify-content: center;" class="row">
+  <button style="width:95%; height:100px; border-color: black; border-width:1px; margin-bottom:10px;background-color:#4de3d3;" class="btn btn-default btn-lg btn-block btn-huge"> <font color="black" size="5">Simple CSV Format</font></button>
+  </div>
+
+  </div><br/>
+
+  
+  <div class="col-lg-6">
+
+  <div style="justify-content: center;" class="row">
+  <button style="width:95%; height:100px; border-color: black; border-width:1px; margin-bottom:10px;background-color:#4ddae3;" class="btn btn-default btn-lg btn-block btn-huge"> <font color="black" size="5">PDF, Images, Videos & 3D</font></button>
+  </div>
+
+  </div><br/>
+  </div>
+  </div>
+
+  <br/>
+  <br/>
+
+<div id="features" class="container">	
+
+<div  style=";display: flex; justify-content: center;" class="row">
+
+<div class="col">
+
+<div style="justify-content: center;" class="row">
+<button style="width:350px; height:100px; border-color: black; border-width:1px; margin-bottom:10px; background-color:#45cde0" class="btn btn-default btn-lg btn-block btn-huge"> <font color="black" size="5">Get Sharable Link to Files</font></button>
+</div>
+
+</div><br/>
+
+<div class="col">
+
+<div style="justify-content: center;" class="row">
+<button style="width:350px; height:100px; border-color: black; border-width:1px; margin-bottom:10px;background-color:#45cde0" class="btn btn-default btn-lg btn-block btn-huge"> <font color="black" size="5">Modify Images within App</font></button>
+</div>
+
+
+
+</div><br/>
+
+<div class="col">
+
+<div style="justify-content: center;" class="row">
+<button style="width:350px; height:100px; border-color: black; border-width:1px; margin-bottom:10px;background-color:#45cde0" class="btn btn-default btn-lg btn-block btn-huge"> <font color="black" size="5">Lifetime Limited Free Space</font></button>
+</div>
+
+</div>
+
+</div>
+</div>
+</main>
+
+<div class="footer_clio row" id="footer_clio" name="footer_clio" style="display: flex; justify-content: center; background-color: #ffffff;margin-left:0px;margin-right:0px;padding-top:20px;padding-bottom:20px;border-color:black;border-width:1px;">
+    <br/>
+    <div class="col-lg-4">
+    <h3><u>Links</u></h3>
+    <h4><a href="http://cliocrm.co">Company Website</a></h4>
+    <h4><a href="https://www.linkedin.com/company/14571342">Linkedin</a></h4>
+    
+    </div>
+    <div class="col-lg-3">
+    <h3><u>Learn more</u></h3>
+    <h4><a href="cliocrm.co">Policies & Terms</a></h4>
+    <h4><a href="https://cliocrm.co">Cliosuite Articles</a></h4>
+    
+    </div>
+    <div class="col-lg-4">
+    <h3><u>Contact Us</u></h3>
+    <h4>Mobile: +91-6361789254</h4>
+    <h4>Email: <a href="mailto:jigisha@cliocrm.com">jigisha@cliocrm.com</a></h4>
+    </div>
+
+    </div>
+    <br/>
+      <div class="container" style="display: flex; justify-content: center; ">
+      <p><font size="4" color="black"><b>Copyright © 2022 Cliosight - All Rights Reserved.</b></font></p>
+    </div>
+
+</body>
+
