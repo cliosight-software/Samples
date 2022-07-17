@@ -1,3 +1,5 @@
+/******** Please use GET, PUT and DELETE REST methods instead of POST wherever applicable in the html to follow the correct semantics *******/
+
 const express = require('express')
 const app = express();
 const execSync = require('child_process').execSync;
