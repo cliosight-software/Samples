@@ -2,7 +2,7 @@
 
 /******** Please use GET, PUT and DELETE REST methods instead of POST wherever applicable in the html to follow the correct convention *******/
 /******** The methods do not gurantee perfect functioning and performance expectations. Please make the necessary changes *********/
-/******** I have coded with 0 (Zero) guidance always from other developers around. So, instead of judging my code, please refine it yourself! ********/
+/******** I have coded with 0 (Zero) guidance always from other developers around. So, instead of judging my code as a 'thank you' token, please refine it yourself! ********/
 
 const express = require('express')
 const app = express();
