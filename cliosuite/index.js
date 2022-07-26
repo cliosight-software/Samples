@@ -2,7 +2,6 @@
 
 /******** Please use GET, PUT and DELETE REST methods instead of POST wherever applicable in the html to follow the correct convention *******/
 /******** The methods do not gurantee perfect functioning and performance expectations. Please make the necessary changes *********/
-/******** I have coded with 0 (Zero) guidance always from other developers around. So, instead of judging my code through others, as a 'thank you' token, please refine it yourself and send me your comments directly by email on the blog posts published in cliocrm.co ********/
 
 const express = require('express')
 const app = express();
