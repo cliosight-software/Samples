@@ -3,7 +3,7 @@
 # cliosuite
 
 <b><u>PROJECTS</u></b><br/><br/>
-Blog posts for a few of these sections is available on our website cliosight.co.<br/><br/>
+Blog posts for a few of these sections ate available on our website cliosight.co.<br/><br/>
 <b>1. User research</b>
 Our first project is to create a product intro, signup web app, and collect user data and other information from potential customers. 
 
@@ -53,7 +53,7 @@ Our sixth project is a web application for integrated online marketing with <b>a
 Technology stack used:
 1. Node JS
 2. Express JS
-3. Handlebars
+3. Handlebar JS
 4. Angular JS
 5. JQuery
 6. HTML5/CSS3
