@@ -1,6 +1,6 @@
 
 
-/******** Please use GET, PUT and DELETE REST methods instead of POST wherever applicable in the html to follow the correct convention *******/
+/******** Please use GET, PUT and DELETE REST methods instead of POST wherever applicable in the html and JS files to follow the correct convention *******/
 /******** The methods do not gurantee perfect functioning and performance expectations. Please make the necessary changes *********/
 
 const express = require('express')
