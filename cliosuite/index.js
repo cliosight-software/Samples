@@ -1,6 +1,5 @@
 
 
-/******** Please use GET, PUT and DELETE REST methods instead of POST wherever applicable in the html and JS files to follow the correct convention *******/
 /******** The methods do not gurantee perfect functioning and performance expectations. Please make the necessary changes *********/
 
 const express = require('express')
@@ -104,13 +103,13 @@ router.post('/saveContact', function(req, res) {
 		
 	});
 
-router.post('/deleteContact', function(req, res) {
+router.delete('/deleteContact', function(req, res) {
 	  console.log(req.body);
 	  var code = dbConnection.execute("delete from contacts where contact_id like '"+req.body['contactID']+"'");
 	  res.send(code);
 	});
 
-router.post('/updateContactStatus', function(req, res) {
+router.put('/updateContactStatus', function(req, res) {
 	  console.log(req.body);
 	  try{
 	  var code = dbConnection.execute("update contacts set contact_status=\""+
@@ -123,7 +122,7 @@ router.post('/updateContactStatus', function(req, res) {
 	  }
 	});
 
-router.post('/updateGroupStatus', function(req, res) {
+router.put('/updateGroupStatus', function(req, res) {
 	  console.log(req.body);
 	  try{
 	  	var code = dbConnection.execute("update groups set group_status=\""+
@@ -240,7 +239,7 @@ router.post('/assignContactToGroup', function(req, res){
 	  
 	});
 
-router.post('/removeContactFromGroup', function(req, res){
+router.delete('/removeContactFromGroup', function(req, res){
 	  var groupID = req.body['groupID'];
 	  var contactID = req.body['contactID'];
 	  console.log(req.body);
@@ -443,7 +442,7 @@ router.post('/assignMedia', (req,res) => {
 
     });
 
-router.post('/dissociateMedia', (req,res) => {
+router.delete('/dissociateMedia', (req,res) => {
 	var userContext = req.userContext;
 	var media_file = req.query.media_file;
 	var entity_id = req.query.entity_id;
@@ -454,7 +453,7 @@ router.post('/dissociateMedia', (req,res) => {
     });
 
 
-router.post('/updateMediaTag', function(req, res){
+router.put('/updateMediaTag', function(req, res){
 	  var userContext = req.userContext;
 	  var media_file = req.query.media_file;
 	  var media_tag = req.query.media_tag;
@@ -814,7 +813,7 @@ router.get('/getRecords', function(req, res){
 
 /////////////////////////// Delete the records //////////////////////////////
 
-router.post('/deleteRecords', function(req, res){
+router.delete('/deleteRecords', function(req, res){
 	  var table_name = req.query.table_name;
 	  //isMaxRowsBreached(table_name);
 	  var unique_key = getUniqueKeySet(table_name);
@@ -937,7 +936,7 @@ router.post('/saveJsonToDB', function(req, res){
 
 //////////////////////////// Database Cleaup and Backup operations /////////////////////////////
 
-router.post('/clearDBTablesData', function(req, res){
+router.delete('/clearDBTablesData', function(req, res){
 	  var code;
 	  var user_id = req.body['id'].split("_")[0];
 	  var table_name = req.body['table_name'];
@@ -957,7 +956,7 @@ router.post('/clearDBTablesData', function(req, res){
 //The basic plan will clear only pre-defined out-of-the-box tables. 
 //higher versions to allow creating custom tables that will be registered in the schema metadata info table.
 //Thats why not using cliosuite_schema_info table for fetching table names.
-router.post('/clearDBData', function(req, res){
+router.delete('/clearDBData', function(req, res){
 	  var code;
 	  var current_db_schema = getCurrentSchemaVersion();
 	  var table_names = getAllTableNames(current_db_schema);
