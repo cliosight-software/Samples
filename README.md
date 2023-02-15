@@ -1,5 +1,5 @@
 
-# Code Sammples
+# Code Samples
 
 My first-hand experience building sample Node JS projects.
 
