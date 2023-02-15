@@ -1,1 +1,1 @@
-These are sample code files from several projects.
+Sample code from a practice project.
